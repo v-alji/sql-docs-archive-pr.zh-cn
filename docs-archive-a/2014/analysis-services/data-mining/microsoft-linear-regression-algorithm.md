@@ -1,0 +1,81 @@
+---
+title: Microsoft 线性回归算法 |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: analysis-services
+ms.topic: conceptual
+helpviewer_keywords:
+- algorithms [data mining]
+- linear regression algorithms [Analysis Services]
+- linear regression [Analysis Services]
+- regression algorithms [Analysis Services]
+ms.assetid: 50a4abb8-c0b0-4380-ba5e-c49b305b9d22
+author: minewiskan
+ms.author: owend
+ms.openlocfilehash: 6d03f4d60131471d1a978fd66306cc73f274a536
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87591001"
+---
+# <a name="microsoft-linear-regression-algorithm"></a><span data-ttu-id="2ea04-102">Microsoft 线性回归算法</span><span class="sxs-lookup"><span data-stu-id="2ea04-102">Microsoft Linear Regression Algorithm</span></span>
+  <span data-ttu-id="2ea04-103">[!INCLUDE[msCoName](../../includes/msconame-md.md)] 线性回归算法是 [!INCLUDE[msCoName](../../includes/msconame-md.md)] 决策树算法的一种变体，有助于计算依赖变量和独立变量之间的线性关系，然后使用该关系进行预测。</span><span class="sxs-lookup"><span data-stu-id="2ea04-103">The [!INCLUDE[msCoName](../../includes/msconame-md.md)] Linear Regression algorithm is a variation of the [!INCLUDE[msCoName](../../includes/msconame-md.md)] Decision Trees algorithm that helps you calculate a linear relationship between a dependent and independent variable, and then use that relationship for prediction.</span></span>
+
+ <span data-ttu-id="2ea04-104">该关系采用的表示形式是最能代表数据序列的线的公式。</span><span class="sxs-lookup"><span data-stu-id="2ea04-104">The relationship takes the form of an equation for a line that best represents a series of data.</span></span> <span data-ttu-id="2ea04-105">例如，以下关系图中的线是数据最可能的线性表示形式。</span><span class="sxs-lookup"><span data-stu-id="2ea04-105">For example, the line in the following diagram is the best possible linear representation of the data.</span></span>
+
+ <span data-ttu-id="2ea04-106">![模拟一组数据的线](../media/linear-regression.gif "模拟一组数据的线")</span><span class="sxs-lookup"><span data-stu-id="2ea04-106">![A line that models a set of data](../media/linear-regression.gif "A line that models a set of data")</span></span>
+
+ <span data-ttu-id="2ea04-107">关系图中的每个数据点都有一个与该数据点与回归线之间距离关联的错误。</span><span class="sxs-lookup"><span data-stu-id="2ea04-107">Each data point in the diagram has an error associated with its distance from the regression line.</span></span> <span data-ttu-id="2ea04-108">回归方程式中的系数 a 和 b 可以调整回归线的角度和位置。</span><span class="sxs-lookup"><span data-stu-id="2ea04-108">The coefficients a and b in the regression equation adjust the angle and location of the regression line.</span></span> <span data-ttu-id="2ea04-109">可以对 a 和 b 进行调整，直到与所有点都关联的错误总数达到最低值，以此获得回归公式。</span><span class="sxs-lookup"><span data-stu-id="2ea04-109">You can obtain the regression equation by adjusting a and b until the sum of the errors that are associated with all the points reaches its minimum.</span></span>
+
+ <span data-ttu-id="2ea04-110">还有其他类型的使用多个变量的线性回归以及非线性回归方法。</span><span class="sxs-lookup"><span data-stu-id="2ea04-110">There are other kinds of regression that use multiple variables, and also nonlinear methods of regression.</span></span> <span data-ttu-id="2ea04-111">但是，线性回归是一种众所周知的有用方法，可对一些潜在因素中更改的响应进行建模。</span><span class="sxs-lookup"><span data-stu-id="2ea04-111">However, linear regression is a useful and well-known method for modeling a response to a change in some underlying factor.</span></span>
+
+## <a name="example"></a><span data-ttu-id="2ea04-112">示例</span><span class="sxs-lookup"><span data-stu-id="2ea04-112">Example</span></span>
+ <span data-ttu-id="2ea04-113">可以使用线性回归确定两个连续列之间的关系。</span><span class="sxs-lookup"><span data-stu-id="2ea04-113">You can use linear regression to determine a relationship between two continuous columns.</span></span> <span data-ttu-id="2ea04-114">例如，您可以使用线性回归根据生产或销售数据计算趋势线。</span><span class="sxs-lookup"><span data-stu-id="2ea04-114">For example, you can use linear regression to compute a trend line from manufacturing or sales data.</span></span> <span data-ttu-id="2ea04-115">还可以使用线性回归作为基础，来开发更复杂的数据挖掘模型，以评估数据列之间的关系。</span><span class="sxs-lookup"><span data-stu-id="2ea04-115">You could also use the linear regression as a precursor to development of more complex data mining models, to assess the relationships among data columns.</span></span>
+
+ <span data-ttu-id="2ea04-116">尽管有许多计算线性回归的方法，而且这些方法不需要数据挖掘工具，但是使用 [!INCLUDE[msCoName](../../includes/msconame-md.md)] 线性回归算法计算线性回归的优势在于可以自动计算并测试变量之间所有可能的关系。</span><span class="sxs-lookup"><span data-stu-id="2ea04-116">Although there are many ways to compute linear regression that do not require data mining tools, the advantage of using the [!INCLUDE[msCoName](../../includes/msconame-md.md)] Linear Regression algorithm for this task is that all the possible relationships among the variables are automatically computed and tested.</span></span> <span data-ttu-id="2ea04-117">您不必选择计算方法，如计算最小平方法。</span><span class="sxs-lookup"><span data-stu-id="2ea04-117">You do not have to select a computation method, such as solving for least squares.</span></span> <span data-ttu-id="2ea04-118">但对于结果受多个因素影响的应用场景，线性回归可能会过分简化其中的关系。</span><span class="sxs-lookup"><span data-stu-id="2ea04-118">However, linear regression might oversimplify the relationships in scenarios where multiple factors affect the outcome.</span></span>
+
+## <a name="how-the-algorithm-works"></a><span data-ttu-id="2ea04-119">算法的原理</span><span class="sxs-lookup"><span data-stu-id="2ea04-119">How the Algorithm Works</span></span>
+ <span data-ttu-id="2ea04-120">[!INCLUDE[msCoName](../../includes/msconame-md.md)] 线性回归算法是 [!INCLUDE[msCoName](../../includes/msconame-md.md)] 决策树算法的一种变体。</span><span class="sxs-lookup"><span data-stu-id="2ea04-120">The [!INCLUDE[msCoName](../../includes/msconame-md.md)] Linear Regression algorithm is a variation of the [!INCLUDE[msCoName](../../includes/msconame-md.md)] Decision Trees algorithm.</span></span> <span data-ttu-id="2ea04-121">如果选择 [!INCLUDE[msCoName](../../includes/msconame-md.md)] 线性回归算法，将会调用带有参数的 [!INCLUDE[msCoName](../../includes/msconame-md.md)] 决策树算法特例，这些参数不但会限定算法行为，而且还会要求输入数据的类型。</span><span class="sxs-lookup"><span data-stu-id="2ea04-121">When you select the [!INCLUDE[msCoName](../../includes/msconame-md.md)] Linear Regression algorithm, a special case of the [!INCLUDE[msCoName](../../includes/msconame-md.md)] Decision Trees algorithm is invoked, with parameters that constrain the behavior of the algorithm and require certain input data types.</span></span> <span data-ttu-id="2ea04-122">另外，在线性回归模型中，整个数据集都用于计算初始传递中的关系，而标准决策树模型则不断将数据拆分为更小的子集或树。</span><span class="sxs-lookup"><span data-stu-id="2ea04-122">Moreover, in a linear regression model, the whole data set is used for computing relationships in the initial pass, whereas a standard decision trees model splits the data repeatedly into smaller subsets or trees.</span></span>
+
+## <a name="data-required-for-linear-regression-models"></a><span data-ttu-id="2ea04-123">线性回归模型所需的数据</span><span class="sxs-lookup"><span data-stu-id="2ea04-123">Data Required for Linear Regression Models</span></span>
+ <span data-ttu-id="2ea04-124">在准备用于线性回归模型的数据时，应该了解特定算法的要求。</span><span class="sxs-lookup"><span data-stu-id="2ea04-124">When you prepare data for use in a linear regression model, you should understand the requirements for the particular algorithm.</span></span> <span data-ttu-id="2ea04-125">这包括所需数据量以及数据使用方式。</span><span class="sxs-lookup"><span data-stu-id="2ea04-125">This includes how much data is needed, and how the data is used.</span></span> <span data-ttu-id="2ea04-126">此模型类型的要求如下：</span><span class="sxs-lookup"><span data-stu-id="2ea04-126">The requirements for this model type are as follows:</span></span>
+
+-   <span data-ttu-id="2ea04-127">**单键列** 每个模型都必须包含一个用于唯一标识每条记录的数值列或文本列。</span><span class="sxs-lookup"><span data-stu-id="2ea04-127">**A single key column** Each model must contain one numeric or text column that uniquely identifies each record.</span></span> <span data-ttu-id="2ea04-128">不允许复合键。</span><span class="sxs-lookup"><span data-stu-id="2ea04-128">Compound keys are not permitted.</span></span>
+
+-   <span data-ttu-id="2ea04-129">**可预测列** 至少需要一个可预测列。</span><span class="sxs-lookup"><span data-stu-id="2ea04-129">**A predictable column** Requires at least one predictable column.</span></span> <span data-ttu-id="2ea04-130">可以在一个模型中包含多个可预测属性，但是这些可预测属性必须是连续数值数据类型。</span><span class="sxs-lookup"><span data-stu-id="2ea04-130">You can include multiple predictable attributes in a model, but the predictable attributes must be continuous numeric data types.</span></span> <span data-ttu-id="2ea04-131">不能将 datetime 数据类型用作可预测属性，即使数据的本机存储是数值类型。</span><span class="sxs-lookup"><span data-stu-id="2ea04-131">You cannot use a datetime data type as a predictable attribute even if the native storage for the data is numeric.</span></span>
+
+-   <span data-ttu-id="2ea04-132">**输入列** ：输入列必须包含连续数值数据，并且向其分配相应的数据类型。</span><span class="sxs-lookup"><span data-stu-id="2ea04-132">**Input columns** Input columns must contain continuous numeric data and be assigned the appropriate data type.</span></span>
+
+ <span data-ttu-id="2ea04-133">有关详细信息，请参阅 [Microsoft 线性回归算法技术参考](microsoft-linear-regression-algorithm-technical-reference.md)。</span><span class="sxs-lookup"><span data-stu-id="2ea04-133">For more information, see the Requirements section of [Microsoft Linear Regression Algorithm Technical Reference](microsoft-linear-regression-algorithm-technical-reference.md).</span></span>
+
+## <a name="viewing-a-linear-regression-model"></a><span data-ttu-id="2ea04-134">查看线性回归模型</span><span class="sxs-lookup"><span data-stu-id="2ea04-134">Viewing a Linear Regression Model</span></span>
+ <span data-ttu-id="2ea04-135">若要浏览模型，可以使用 **“Microsoft 树查看器”**。</span><span class="sxs-lookup"><span data-stu-id="2ea04-135">To explore the model, you use the **Microsoft Tree Viewer**.</span></span> <span data-ttu-id="2ea04-136">线性回归模型的树结构非常简单，回归方程式的所有相关信息都包含在一个节点中。</span><span class="sxs-lookup"><span data-stu-id="2ea04-136">The tree structure for a linear regression model is very simple, with all the information about the regression equation contained in a single node.</span></span> <span data-ttu-id="2ea04-137">有关详细信息，请参阅 [使用 Microsoft 树查看器浏览模型](browse-a-model-using-the-microsoft-tree-viewer.md)。</span><span class="sxs-lookup"><span data-stu-id="2ea04-137">For more information, see [Browse a Model Using the Microsoft Tree Viewer](browse-a-model-using-the-microsoft-tree-viewer.md).</span></span>
+
+ <span data-ttu-id="2ea04-138">如果想了解有关该方程式的更多详细信息，还可以使用 [“Microsoft 一般内容树查看器”](browse-a-model-using-the-microsoft-generic-content-tree-viewer.md)查看系数和其他详细信息。</span><span class="sxs-lookup"><span data-stu-id="2ea04-138">If you want to know more detail about the equation, you can also view the coefficients and other details by using the [Microsoft Generic Content Tree Viewer](browse-a-model-using-the-microsoft-generic-content-tree-viewer.md).</span></span>
+
+ <span data-ttu-id="2ea04-139">对于线性回归模型，模型内容包括元数据、回归公式和有关输入值分布的统计信息。</span><span class="sxs-lookup"><span data-stu-id="2ea04-139">For a linear regression model, the model content includes metadata, the regression formula, and statistics about the distribution of input values.</span></span> <span data-ttu-id="2ea04-140">有关详细信息，请参阅 [线性回归模型的挖掘模型内容（Analysis Services - 数据挖掘）](mining-model-content-for-linear-regression-models-analysis-services-data-mining.md)。</span><span class="sxs-lookup"><span data-stu-id="2ea04-140">For more information, see [Mining Model Content for Linear Regression Models &#40;Analysis Services - Data Mining&#41;](mining-model-content-for-linear-regression-models-analysis-services-data-mining.md).</span></span>
+
+## <a name="creating-predictions"></a><span data-ttu-id="2ea04-141">创建预测</span><span class="sxs-lookup"><span data-stu-id="2ea04-141">Creating Predictions</span></span>
+ <span data-ttu-id="2ea04-142">模型处理完毕后，结果将以一组统计信息和线性回归公式的形式存储，您可以利用这些结果来计算未来趋势。</span><span class="sxs-lookup"><span data-stu-id="2ea04-142">After the model has been processed, the results are stored as a set of statistics together with the linear regression formula, which you can use to compute future trends.</span></span> <span data-ttu-id="2ea04-143">有关用于线性回归模型的查询的示例，请参阅 [线性回归模型查询示例](linear-regression-model-query-examples.md)。</span><span class="sxs-lookup"><span data-stu-id="2ea04-143">For examples of queries to use with a linear regression model, see [Linear Regression Model Query Examples](linear-regression-model-query-examples.md).</span></span>
+
+ <span data-ttu-id="2ea04-144">有关如何创建针对挖掘模型的查询的常规信息，请参阅 [数据挖掘查询](data-mining-queries.md)。</span><span class="sxs-lookup"><span data-stu-id="2ea04-144">For general information about how to create queries against mining models, see [Data Mining Queries](data-mining-queries.md).</span></span>
+
+ <span data-ttu-id="2ea04-145">除了通过选择 [!INCLUDE[msCoName](../../includes/msconame-md.md)] 线性回归算法创建线性回归模型外，您还可以在可预测属性为连续数值数据类型时，创建包含回归的决策树模型。</span><span class="sxs-lookup"><span data-stu-id="2ea04-145">In addition to creating a linear regression model by selecting the [!INCLUDE[msCoName](../../includes/msconame-md.md)] Linear Regression algorithm, if the predictable attribute is a continuous numeric data type, you can create a decision tree model that contains regressions.</span></span> <span data-ttu-id="2ea04-146">在这种情况下，如果找到适当的分离点，该算法会对数据进行拆分；但对于某些数据区域，则会创建回归公式。</span><span class="sxs-lookup"><span data-stu-id="2ea04-146">In this case, the algorithm will split the data when it finds appropriate separation points, but for some regions of data, will create a regression formula instead.</span></span> <span data-ttu-id="2ea04-147">有关决策树模型中回归树的详细信息，请参阅[决策树模型的挖掘模型内容（Analysis Services - 数据挖掘）](mining-model-content-for-decision-tree-models-analysis-services-data-mining.md)。</span><span class="sxs-lookup"><span data-stu-id="2ea04-147">For more information about regression trees within a decision trees model, see [Mining Model Content for Decision Tree Models &#40;Analysis Services - Data Mining&#41;](mining-model-content-for-decision-tree-models-analysis-services-data-mining.md).</span></span>
+
+## <a name="remarks"></a><span data-ttu-id="2ea04-148">备注</span><span class="sxs-lookup"><span data-stu-id="2ea04-148">Remarks</span></span>
+
+-   <span data-ttu-id="2ea04-149">不支持使用预测模型标记语言 (PMML) 创建挖掘模型。</span><span class="sxs-lookup"><span data-stu-id="2ea04-149">Does not support the use of Predictive Model Markup Language (PMML) to create mining models.</span></span>
+
+-   <span data-ttu-id="2ea04-150">不支持创建数据挖掘维度。</span><span class="sxs-lookup"><span data-stu-id="2ea04-150">Does not support the creation of data mining dimensions.</span></span>
+
+-   <span data-ttu-id="2ea04-151">支持钻取。</span><span class="sxs-lookup"><span data-stu-id="2ea04-151">Supports drillthrough.</span></span>
+
+-   <span data-ttu-id="2ea04-152">支持使用 OLAP 挖掘模型。</span><span class="sxs-lookup"><span data-stu-id="2ea04-152">Supports the use of OLAP mining models.</span></span>
+
+## <a name="see-also"></a><span data-ttu-id="2ea04-153">另请参阅</span><span class="sxs-lookup"><span data-stu-id="2ea04-153">See Also</span></span>
+ <span data-ttu-id="2ea04-154">[数据挖掘算法 &#40;Analysis Services 数据挖掘&#41;](data-mining-algorithms-analysis-services-data-mining.md) [Microsoft 线性回归算法技术参考](microsoft-linear-regression-algorithm-technical-reference.md)[线性回归模型查询示例](linear-regression-model-query-examples.md)[线性回归模型的挖掘模型内容 &#40;Analysis Services 数据挖掘&#41;](mining-model-content-for-linear-regression-models-analysis-services-data-mining.md)</span><span class="sxs-lookup"><span data-stu-id="2ea04-154">[Data Mining Algorithms &#40;Analysis Services - Data Mining&#41;](data-mining-algorithms-analysis-services-data-mining.md) [Microsoft Linear Regression Algorithm Technical Reference](microsoft-linear-regression-algorithm-technical-reference.md) [Linear Regression Model Query Examples](linear-regression-model-query-examples.md) [Mining Model Content for Linear Regression Models &#40;Analysis Services - Data Mining&#41;](mining-model-content-for-linear-regression-models-analysis-services-data-mining.md)</span></span>
+
+

@@ -1,0 +1,64 @@
+---
+title: 描述的聚集索引和非聚集索引 | Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: table-view-index
+ms.topic: conceptual
+helpviewer_keywords:
+- query optimizer [SQL Server], index usage
+- index concepts [SQL Server]
+ms.assetid: b7d6b323-728d-4763-a987-92e6292f6f7a
+author: MikeRayMSFT
+ms.author: mikeray
+ms.openlocfilehash: c9eb51a24000b8af4a466fe4330644a722ad325b
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87693322"
+---
+# <a name="clustered-and-nonclustered-indexes-described"></a><span data-ttu-id="ad7eb-102">描述的聚集索引和非聚集索引</span><span class="sxs-lookup"><span data-stu-id="ad7eb-102">Clustered and Nonclustered Indexes Described</span></span>
+  <span data-ttu-id="ad7eb-103">索引是与表或视图关联的磁盘上结构，可以加快从表或视图中检索行的速度。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-103">An index is an on-disk structure associated with a table or view that speeds retrieval of rows from the table or view.</span></span> <span data-ttu-id="ad7eb-104">索引包含由表或视图中的一列或多列生成的键。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-104">An index contains keys built from one or more columns in the table or view.</span></span> <span data-ttu-id="ad7eb-105">这些键存储在一个结构（B 树）中，使 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 可以快速有效地查找与键值关联的行。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-105">These keys are stored in a structure (B-tree) that enables [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] to find the row or rows associated with the key values quickly and efficiently.</span></span>  
+  
+ <span data-ttu-id="ad7eb-106">表或视图可以包含以下类型的索引：</span><span class="sxs-lookup"><span data-stu-id="ad7eb-106">A table or view can contain the following types of indexes:</span></span>  
+  
+-   <span data-ttu-id="ad7eb-107">聚集</span><span class="sxs-lookup"><span data-stu-id="ad7eb-107">Clustered</span></span>  
+  
+    -   <span data-ttu-id="ad7eb-108">聚集索引根据数据行的键值在表或视图中排序和存储这些数据行。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-108">Clustered indexes sort and store the data rows in the table or view based on their key values.</span></span> <span data-ttu-id="ad7eb-109">索引定义中包含聚集索引列。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-109">These are the columns included in the index definition.</span></span> <span data-ttu-id="ad7eb-110">每个表只能有一个聚集索引，因为数据行本身只能按一个顺序排序。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-110">There can be only one clustered index per table, because the data rows themselves can be sorted in only one order.</span></span>  
+  
+    -   <span data-ttu-id="ad7eb-111">只有当表包含聚集索引时，表中的数据行才按排序顺序存储。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-111">The only time the data rows in a table are stored in sorted order is when the table contains a clustered index.</span></span> <span data-ttu-id="ad7eb-112">如果表具有聚集索引，则该表称为聚集表。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-112">When a table has a clustered index, the table is called a clustered table.</span></span> <span data-ttu-id="ad7eb-113">如果表没有聚集索引，则其数据行存储在一个称为堆的无序结构中。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-113">If a table has no clustered index, its data rows are stored in an unordered structure called a heap.</span></span>  
+  
+-   <span data-ttu-id="ad7eb-114">非聚集</span><span class="sxs-lookup"><span data-stu-id="ad7eb-114">Nonclustered</span></span>  
+  
+    -   <span data-ttu-id="ad7eb-115">非聚集索引具有独立于数据行的结构。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-115">Nonclustered indexes have a structure separate from the data rows.</span></span> <span data-ttu-id="ad7eb-116">非聚集索引包含非聚集索引键值，并且每个键值项都有指向包含该键值的数据行的指针。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-116">A nonclustered index contains the nonclustered index key values and each key value entry has a pointer to the data row that contains the key value.</span></span>  
+  
+    -   <span data-ttu-id="ad7eb-117">从非聚集索引中的索引行指向数据行的指针称为行定位器。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-117">The pointer from an index row in a nonclustered index to a data row is called a row locator.</span></span> <span data-ttu-id="ad7eb-118">行定位器的结构取决于数据页是存储在堆中还是聚集表中。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-118">The structure of the row locator depends on whether the data pages are stored in a heap or a clustered table.</span></span> <span data-ttu-id="ad7eb-119">对于堆，行定位器是指向行的指针。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-119">For a heap, a row locator is a pointer to the row.</span></span> <span data-ttu-id="ad7eb-120">对于聚集表，行定位器是聚集索引键。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-120">For a clustered table, the row locator is the clustered index key.</span></span>  
+  
+    -   <span data-ttu-id="ad7eb-121">您可以向非聚集索引的叶级添加非键列以跳过现有的索引键限制（900 字节和 16 键列），并执行完整范围内的索引查询。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-121">You can add nonkey columns to the leaf level of the nonclustered index to by-pass existing index key limits, 900 bytes and 16 key columns, and execute fully covered, indexed, queries.</span></span> <span data-ttu-id="ad7eb-122">有关详细信息，请参阅 [Create Indexes with Included Columns](create-indexes-with-included-columns.md)。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-122">For more information, see [Create Indexes with Included Columns](create-indexes-with-included-columns.md).</span></span>  
+  
+ <span data-ttu-id="ad7eb-123">聚集索引和非聚集索引都可以是唯一的。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-123">Both clustered and nonclustered indexes can be unique.</span></span> <span data-ttu-id="ad7eb-124">这意味着任何两行都不能有相同的索引键值。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-124">This means no two rows can have the same value for the index key.</span></span> <span data-ttu-id="ad7eb-125">另外，索引也可以不是唯一的，即多行可以共享同一键值。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-125">Otherwise, the index is not unique and multiple rows can share the same key value.</span></span> <span data-ttu-id="ad7eb-126">有关详细信息，请参阅 [创建唯一索引](create-unique-indexes.md)。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-126">For more information, see [Create Unique Indexes](create-unique-indexes.md).</span></span>  
+  
+ <span data-ttu-id="ad7eb-127">每当修改了表数据后，都会自动维护表或视图的索引。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-127">Indexes are automatically maintained for a table or view whenever the table data is modified.</span></span>  
+  
+ <span data-ttu-id="ad7eb-128">有关其他类型的特殊用途索引，请参阅 [Indexes](indexes.md) 。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-128">See [Indexes](indexes.md) for additional types of special purpose indexes.</span></span>  
+  
+## <a name="indexes-and-constraints"></a><span data-ttu-id="ad7eb-129">索引和约束</span><span class="sxs-lookup"><span data-stu-id="ad7eb-129">Indexes and Constraints</span></span>  
+ <span data-ttu-id="ad7eb-130">对表列定义了 PRIMARY KEY 约束和 UNIQUE 约束时，会自动创建索引。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-130">Indexes are automatically created when PRIMARY KEY and UNIQUE constraints are defined on table columns.</span></span> <span data-ttu-id="ad7eb-131">例如，如果创建了表并将一个特定列标识为主键，则 [!INCLUDE[ssDE](../../includes/ssde-md.md)] 自动对该列创建 PRIMARY KEY 约束和索引。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-131">For example, when you create a table and identify a particular column to be the primary key, the [!INCLUDE[ssDE](../../includes/ssde-md.md)] automatically creates a PRIMARY KEY constraint and index on that column.</span></span> <span data-ttu-id="ad7eb-132">有关详细信息，请参阅 [Create Primary Keys](../tables/create-primary-keys.md) 和 [Create Unique Constraints](../tables/create-unique-constraints.md)。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-132">For more information, see [Create Primary Keys](../tables/create-primary-keys.md) and [Create Unique Constraints](../tables/create-unique-constraints.md).</span></span>  
+  
+## <a name="how-indexes-are-used-by-the-query-optimizer"></a><span data-ttu-id="ad7eb-133">查询优化器如何使用索引</span><span class="sxs-lookup"><span data-stu-id="ad7eb-133">How Indexes Are Used by the Query Optimizer</span></span>  
+ <span data-ttu-id="ad7eb-134">设计良好的索引可以减少磁盘 I/O 操作，并且消耗的系统资源也较少，从而可以提高查询性能。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-134">Well-designed indexes can reduce disk I/O operations and consume fewer system resources therefore improving query performance.</span></span> <span data-ttu-id="ad7eb-135">对于包含 SELECT、UPDATE、DELETE 或 MERGE 语句的各种查询，索引会很有用。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-135">Indexes can be helpful for a variety of queries that contain SELECT, UPDATE, DELETE, or MERGE statements.</span></span> <span data-ttu-id="ad7eb-136">例如，在 `SELECT Title, HireDate FROM HumanResources.Employee WHERE EmployeeID = 250` 数据库中执行的查询 [!INCLUDE[ssSampleDBobject](../../includes/sssampledbobject-md.md)] 。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-136">Consider the query `SELECT Title, HireDate FROM HumanResources.Employee WHERE EmployeeID = 250` in the [!INCLUDE[ssSampleDBobject](../../includes/sssampledbobject-md.md)] database.</span></span> <span data-ttu-id="ad7eb-137">执行此查询时，查询优化器评估可用于检索数据的每个方法，然后选择最有效的方法。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-137">When this query is executed, the query optimizer evaluates each available method for retrieving the data and selects the most efficient method.</span></span> <span data-ttu-id="ad7eb-138">可能采用的方法包括扫描表和扫描一个或多个索引（如果有）。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-138">The method may be a table scan, or may be scanning one or more indexes if they exist.</span></span>  
+  
+ <span data-ttu-id="ad7eb-139">扫描表时，查询优化器读取表中的所有行，并提取满足查询条件的行。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-139">When performing a table scan, the query optimizer reads all the rows in the table, and extracts the rows that meet the criteria of the query.</span></span> <span data-ttu-id="ad7eb-140">扫描表会有许多磁盘 I/O 操作，并占用大量资源。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-140">A table scan generates many disk I/O operations and can be resource intensive.</span></span> <span data-ttu-id="ad7eb-141">但是，如果查询的结果集是占表中较高百分比的行，扫描表会是最为有效的方法。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-141">However, a table scan could be the most efficient method if, for example, the result set of the query is a high percentage of rows from the table.</span></span>  
+  
+ <span data-ttu-id="ad7eb-142">查询优化器使用索引时，搜索索引键列，查找到查询所需行的存储位置，然后从该位置提取匹配行。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-142">When the query optimizer uses an index, it searches the index key columns, finds the storage location of the rows needed by the query and extracts the matching rows from that location.</span></span> <span data-ttu-id="ad7eb-143">通常，搜索索引比搜索表要快很多，因为索引与表不同，一般每行包含的列非常少，且行遵循排序顺序。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-143">Generally, searching the index is much faster than searching the table because unlike a table, an index frequently contains very few columns per row and the rows are in sorted order.</span></span>  
+  
+ <span data-ttu-id="ad7eb-144">查询优化器在执行查询时通常会选择最有效的方法。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-144">The query optimizer typically selects the most efficient method when executing queries.</span></span> <span data-ttu-id="ad7eb-145">但如果没有索引，则查询优化器必须扫描表。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-145">However, if no indexes are available, the query optimizer must use a table scan.</span></span> <span data-ttu-id="ad7eb-146">您的任务是设计并创建最适合您的环境的索引，以便查询优化器可以从多个有效的索引中选择。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-146">Your task is to design and create indexes that are best suited to your environment so that the query optimizer has a selection of efficient indexes from which to select.</span></span> [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]<span data-ttu-id="ad7eb-147">提供[数据库引擎优化顾问](../performance/database-engine-tuning-advisor.md)来帮助分析数据库环境以及选择适当的索引。</span><span class="sxs-lookup"><span data-stu-id="ad7eb-147">provides the [Database Engine Tuning Advisor](../performance/database-engine-tuning-advisor.md) to help with the analysis of your database environment and in the selection of appropriate indexes.</span></span>  
+  
+## <a name="related-tasks"></a><span data-ttu-id="ad7eb-148">Related Tasks</span><span class="sxs-lookup"><span data-stu-id="ad7eb-148">Related Tasks</span></span>  
+ [<span data-ttu-id="ad7eb-149">创建聚集索引</span><span class="sxs-lookup"><span data-stu-id="ad7eb-149">Create Clustered Indexes</span></span>](create-clustered-indexes.md)  
+  
+ [<span data-ttu-id="ad7eb-150">创建非聚集索引</span><span class="sxs-lookup"><span data-stu-id="ad7eb-150">Create Nonclustered Indexes</span></span>](create-nonclustered-indexes.md)  
+  
+  

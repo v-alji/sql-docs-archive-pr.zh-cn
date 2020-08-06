@@ -1,0 +1,35 @@
+---
+title: 多语言和全球部署 (Master Data Services) | Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: install
+ms.topic: conceptual
+ms.assetid: c3d485f8-867c-4aa2-a90d-f38fda192534
+author: lrtoyou1223
+ms.author: lle
+ms.openlocfilehash: 6f10dfa1a1bb001bd6b207064de7c1cf2dee452d
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87692446"
+---
+# <a name="multi-lingual-and-global-deployments-master-data-services"></a><span data-ttu-id="df423-102">多语言和全球部署 (Master Data Services)</span><span class="sxs-lookup"><span data-stu-id="df423-102">Multi-Lingual and Global Deployments (Master Data Services)</span></span>
+  [!INCLUDE[ssMDSshort](../../includes/ssmdsshort-md.md)] <span data-ttu-id="df423-103">支持 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]支持的所有语言的组件和工具部署。</span><span class="sxs-lookup"><span data-stu-id="df423-103">supports deployment of components and tools in all languages supported by [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)].</span></span> <span data-ttu-id="df423-104">有关详细信息，请参阅 [Local Language Versions in SQL Server](../../sql-server/install/local-language-versions-in-sql-server.md)。</span><span class="sxs-lookup"><span data-stu-id="df423-104">For more information, see [Local Language Versions in SQL Server](../../sql-server/install/local-language-versions-in-sql-server.md).</span></span>  
+  
+## <a name="how-languages-are-used"></a><span data-ttu-id="df423-105">如何使用语言</span><span class="sxs-lookup"><span data-stu-id="df423-105">How languages are used</span></span>  
+ <span data-ttu-id="df423-106">下表说明了对 [!INCLUDE[ssMDSshort](../../includes/ssmdsshort-md.md)] 组件和工具的语言支持情况。</span><span class="sxs-lookup"><span data-stu-id="df423-106">The following table describes the language support for the [!INCLUDE[ssMDSshort](../../includes/ssmdsshort-md.md)] components and tools.</span></span>  
+  
+|<span data-ttu-id="df423-107">组件或工具</span><span class="sxs-lookup"><span data-stu-id="df423-107">Component or Tool</span></span>|<span data-ttu-id="df423-108">说明</span><span class="sxs-lookup"><span data-stu-id="df423-108">Description</span></span>|  
+|-----------------------|-----------------|  
+|[!INCLUDE[ssMDSshort](../../includes/ssmdsshort-md.md)] <span data-ttu-id="df423-109">安装程序</span><span class="sxs-lookup"><span data-stu-id="df423-109">Setup</span></span>|<span data-ttu-id="df423-110">当希望以不同于安装程序语言的语言来提供和支持 [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] Web 应用程序时，请选择“英语”安装程序。</span><span class="sxs-lookup"><span data-stu-id="df423-110">Select the English Setup program when you want the [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] web application to be available and supported in languages that differ from the Setup language.</span></span> <span data-ttu-id="df423-111">有关详细信息，请参阅下面的 [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] 说明。</span><span class="sxs-lookup"><span data-stu-id="df423-111">For more information, see the [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] description below.</span></span>|  
+|[!INCLUDE[ssMDScfgmgr](../../includes/ssmdscfgmgr-md.md)]|<span data-ttu-id="df423-112">安装程序语言决定 [!INCLUDE[ssMDScfgmgr](../../includes/ssmdscfgmgr-md.md)] 语言。</span><span class="sxs-lookup"><span data-stu-id="df423-112">The Setup language determines the [!INCLUDE[ssMDScfgmgr](../../includes/ssmdscfgmgr-md.md)] language.</span></span> <span data-ttu-id="df423-113">例如，如果为安装程序语言选择了“德语”，则在该计算机上提供德语形式的 [!INCLUDE[ssMDScfgmgr](../../includes/ssmdscfgmgr-md.md)] 。</span><span class="sxs-lookup"><span data-stu-id="df423-113">For example, if you choose German for the Setup language, [!INCLUDE[ssMDScfgmgr](../../includes/ssmdscfgmgr-md.md)] is available in German on that computer.</span></span>|  
+|[!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)]|<span data-ttu-id="df423-114">当运行英语形式的安装程序时，将以所有应用程序语言提供和支持 [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] Web 应用程序。</span><span class="sxs-lookup"><span data-stu-id="df423-114">When you run Setup in English, the [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] web application is available and supported in all application languages.</span></span> [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] <span data-ttu-id="df423-115">可以用其中的任何一种应用程序语言来显示，而且会根据客户端 Web 浏览器的语言首选项来接受特定于区域设置的输入。</span><span class="sxs-lookup"><span data-stu-id="df423-115">can display in any of those application languages and accept locale-specific input based on the language preferences of the client web browser.</span></span> <span data-ttu-id="df423-116">如果为不支持的应用程序语言配置语言首选项， [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] 将默认使用“英语”。</span><span class="sxs-lookup"><span data-stu-id="df423-116">If the language preferences are configured for a non-supported application language, [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] defaults to English.</span></span><br /><br /> <span data-ttu-id="df423-117">运行非英文版的安装程序时，将包括所有其他应用程序语言的资源，但是如果客户端使用的 [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] 语言不同于所选的安装程序语言，则不支持上述情形。</span><span class="sxs-lookup"><span data-stu-id="df423-117">When you run Setup in a language other than English, resources are included for the all other application languages but it is not a supported scenario for clients to use [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] in a language other than the selected Setup language.</span></span> <span data-ttu-id="df423-118">如果尝试访问不同于安装程序语言的 [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] 语言版本，可能会在应用程序中遇到数据显示和输入问题。</span><span class="sxs-lookup"><span data-stu-id="df423-118">If you try to access [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] in a language different from the Setup language, you might experience problems with data display and input in the application.</span></span>|  
+|[!INCLUDE[ssMDSshort](../../includes/ssmdsshort-md.md)] <span data-ttu-id="df423-119">数据库</span><span class="sxs-lookup"><span data-stu-id="df423-119">database</span></span>|<span data-ttu-id="df423-120">[!INCLUDE[ssMDSshort](../../includes/ssmdsshort-md.md)] 数据库中的信息不是任何区域设置专用的。</span><span class="sxs-lookup"><span data-stu-id="df423-120">Information in the [!INCLUDE[ssMDSshort](../../includes/ssmdsshort-md.md)] database is not specific to any locale.</span></span> <span data-ttu-id="df423-121">这使得 [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] 可以决定如何显示日期和数字等信息，其格式由客户端 Web 浏览器的语言首选项决定。</span><span class="sxs-lookup"><span data-stu-id="df423-121">This enables [!INCLUDE[ssMDSmdm](../../includes/ssmdsmdm-md.md)] to determine how to display information, such as dates and numbers, in the format determined by the language preferences of the client web browser.</span></span>|  
+  
+## <a name="see-also"></a><span data-ttu-id="df423-122">另请参阅</span><span class="sxs-lookup"><span data-stu-id="df423-122">See Also</span></span>  
+ [<span data-ttu-id="df423-123">安装 Master Data Services</span><span class="sxs-lookup"><span data-stu-id="df423-123">Install Master Data Services</span></span>](install-master-data-services.md)  
+  
+  

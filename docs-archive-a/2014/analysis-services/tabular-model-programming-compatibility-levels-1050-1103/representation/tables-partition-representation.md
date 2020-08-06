@@ -1,0 +1,96 @@
+---
+title: 表格)  (的分区表示形式 |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: analysis-services
+ms.topic: reference
+ms.assetid: b606cd63-755c-4ac0-b19b-95b5363afbdf
+author: minewiskan
+ms.author: owend
+ms.openlocfilehash: 6a29f273a584f3e60c6cf6458751965158cf8704
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87692556"
+---
+# <a name="partition-representation-tabular"></a><span data-ttu-id="d39f7-102">分区表示形式（表格）</span><span class="sxs-lookup"><span data-stu-id="d39f7-102">Partition Representation (Tabular)</span></span>
+  <span data-ttu-id="d39f7-103">为便于操作，可以将一个表划分为不同的行子集，而将这些行子集组合在一起可形成表；这些子集中的每个子集都是表的一个分区。</span><span class="sxs-lookup"><span data-stu-id="d39f7-103">For operational purposes, a table can be divided in different subsets of rows that when combined together form the table; each of those subsets is a partition of the table.</span></span>  
+  
+## <a name="partition-representation"></a><span data-ttu-id="d39f7-104">分区表示形式</span><span class="sxs-lookup"><span data-stu-id="d39f7-104">Partition Representation</span></span>  
+ <span data-ttu-id="d39f7-105">就 AMO 对象而言，分区表示形式与 <xref:Microsoft.AnalysisServices.Partition> 之间存在一对一映射关系，并且不需要任何其他主要 AMO 对象。</span><span class="sxs-lookup"><span data-stu-id="d39f7-105">In terms of AMO objects a partition representation has a one to one mapping relationship with <xref:Microsoft.AnalysisServices.Partition> and no other main AMO objects are required</span></span>  
+  
+### <a name="partition-in-amo"></a><span data-ttu-id="d39f7-106">AMO 中的分区</span><span class="sxs-lookup"><span data-stu-id="d39f7-106">Partition in AMO</span></span>  
+ <span data-ttu-id="d39f7-107">在使用 AMO 管理分区时，您需要找到表示表格模型表的度量值组，并以此为起点开始工作。</span><span class="sxs-lookup"><span data-stu-id="d39f7-107">When using AMO to manage a partition in a you need to find the measure group that represents the Tabular Model table and work from there.</span></span>  
+  
+ <span data-ttu-id="d39f7-108">下面的代码段演示如何向现有表格模型表添加分区。</span><span class="sxs-lookup"><span data-stu-id="d39f7-108">The following code snippet shows how to add a partition to an existing tabular model table.</span></span>  
+  
+```  
+  
+private void AddPartition(  
+                     AMO.Cube modelCube  
+                  ,  AMO.DataSource newDatasource  
+                  ,  string mgName  
+                  ,  string newPartitionName  
+                  , string partitionSelectStatement  
+                  , Boolean processPartition  
+             )  
+{  
+    mgName = mgName.Trim();  
+    newPartitionName = newPartitionName.Trim();  
+    partitionSelectStatement = partitionSelectStatement.Trim();  
+    //Validate Input  
+    if (string.IsNullOrEmpty(newPartitionName) || string.IsNullOrWhiteSpace(newPartitionName))  
+    {  
+        MessageBox.Show(String.Format("Partition Name cannot be empty or blank"), "AMO to Tabular message", MessageBoxButtons.OK, MessageBoxIcon.Error);  
+        return;  
+    }  
+  
+    if (modelCube.MeasureGroups[mgName].Partitions.ContainsName(newPartitionName))  
+    {  
+        MessageBox.Show(String.Format("Partition Name already defined. Duplicated names are not allowed"), "AMO to Tabular message", MessageBoxButtons.OK, MessageBoxIcon.Error);  
+        return;  
+    }  
+  
+    if (string.IsNullOrEmpty(partitionSelectStatement) || string.IsNullOrWhiteSpace(partitionSelectStatement))  
+    {  
+        MessageBox.Show(String.Format("Select statement cannot be empty or blank"), "AMO to Tabular message", MessageBoxButtons.OK, MessageBoxIcon.Error);  
+        return;  
+    }  
+  
+    //Input validated  
+    string partitionID = newPartitionName; //Using partition name as the ID  
+    AMO.Partition currentPartition = new AMO.Partition(partitionID, partitionID);  
+    currentPartition.StorageMode = AMO.StorageMode.InMemory;  
+    currentPartition.ProcessingMode = AMO.ProcessingMode.Regular;  
+    currentPartition.Source = new AMO.QueryBinding(newDatasource.ID, partitionSelectStatement);  
+    modelCube.MeasureGroups[mgName].Partitions.Add(currentPartition);  
+    try  
+    {  
+        modelCube.Update(AMO.UpdateOptions.ExpandFull, AMO.UpdateMode.UpdateOrCreate);  
+        if (processPartition)  
+        {  
+            modelCube.MeasureGroups[mgName].Partitions[partitionID].Process(AMO.ProcessType.ProcessFull);  
+            MessageBox.Show(String.Format("Partition successfully processed."), "AMO to Tabular message", MessageBoxButtons.OK, MessageBoxIcon.Information);  
+        }  
+  
+    }  
+    catch (AMO.AmoException amoXp)  
+    {  
+        MessageBox.Show(String.Format("AMO exception accessing the server.\nError message: {0}", amoXp.Message), "AMO to Tabular message", MessageBoxButtons.OK, MessageBoxIcon.Warning);  
+        return;  
+    }  
+    catch (Exception)  
+    {  
+        throw;  
+    }  
+}  
+  
+```  
+  
+## <a name="amo2tabular-sample"></a><span data-ttu-id="d39f7-109">AMO2Tabular 示例</span><span class="sxs-lookup"><span data-stu-id="d39f7-109">AMO2Tabular sample</span></span>  
+ <span data-ttu-id="d39f7-110">但是，为了理解如何使用 AMO 创建和操作分区表示形式，请参阅 AMO 到表格示例中的源代码。</span><span class="sxs-lookup"><span data-stu-id="d39f7-110">However, to have an understanding on how to use AMO to create and manipulate partition representations see the source code of the AMO to Tabular sample.</span></span> <span data-ttu-id="d39f7-111">该示例位于 Codeplex。</span><span class="sxs-lookup"><span data-stu-id="d39f7-111">The sample is available at Codeplex.</span></span> <span data-ttu-id="d39f7-112">有关该代码的重要说明：提供该代码只是为了支持本文介绍的逻辑概念，不应用于生产环境中；也不应用于除教学之外的其他用途。</span><span class="sxs-lookup"><span data-stu-id="d39f7-112">An important note about the code: the code is provided only as a support to the logical concepts explained here and should not be used in a production environment; nor should it be used for other purpose other than the pedagogical one.</span></span>  
+  
+  

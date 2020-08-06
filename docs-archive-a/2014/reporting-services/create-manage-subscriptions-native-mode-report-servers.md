@@ -1,0 +1,70 @@
+---
+title: 创建和管理本机模式报表服务器的订阅 | Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: reporting-services-native
+ms.topic: conceptual
+helpviewer_keywords:
+- subscriptions [Reporting Services], managing
+ms.assetid: 7f46cbdb-5102-4941-bca2-5e0ff9012c6b
+author: maggiesMSFT
+ms.author: maggies
+manager: kfile
+ms.openlocfilehash: cf140e045094eb00f0703b8d4b95e20325860bda
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87693661"
+---
+# <a name="create-and-manage-subscriptions-for-native-mode-report-servers"></a><span data-ttu-id="e9e5e-102">创建和管理本机模式报表服务器的订阅</span><span class="sxs-lookup"><span data-stu-id="e9e5e-102">Create and Manage Subscriptions for Native Mode Report Servers</span></span>
+  <span data-ttu-id="e9e5e-103">本节包含有关订阅处理、监管和控制的主题。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-103">This section contains topics about subscription processing, oversight, and control.</span></span> <span data-ttu-id="e9e5e-104">标准订阅和数据驱动订阅的订阅管理有所不同。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-104">Subscription management varies for standard subscriptions and data-driven subscriptions.</span></span> <span data-ttu-id="e9e5e-105">标准订阅通常由用户所有并由用户进行管理。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-105">Standard subscriptions are typically user-owned and managed.</span></span> <span data-ttu-id="e9e5e-106">而数据驱动订阅通常由报表服务器管理员创建和维护。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-106">In contrast, data-driven subscriptions are typically created and maintained by a report server administrator.</span></span>  
+  
+ <span data-ttu-id="e9e5e-107">默认情况下，订阅和传递功能处于启用状态（电子邮件传递需要进行配置才能使用）。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-107">Subscription and delivery features are enabled by default (e-mail delivery requires configuration before it can be used).</span></span> <span data-ttu-id="e9e5e-108">默认的传递扩展插件包括报表服务器电子邮件和文件共享传递。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-108">The default delivery extensions include report server e-mail and file share delivery.</span></span> <span data-ttu-id="e9e5e-109">除非您创建或安装了自定义传递扩展插件，否则，订阅只能在处于本机模式的报表服务器上使用这些分发方法。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-109">Unless you create or install custom delivery extensions, these are the only distribution methods available to subscriptions on a native mode report server.</span></span>  
+  
+## <a name="permissions-for-subscribing-to-reports-on-a-native-mode-report-server"></a><span data-ttu-id="e9e5e-110">在处于本机模式的报表服务器上订阅报表的权限</span><span class="sxs-lookup"><span data-stu-id="e9e5e-110">Permissions for Subscribing to Reports on a Native Mode Report Server</span></span>  
+ <span data-ttu-id="e9e5e-111">可以通过对不同角色启用或禁用订阅任务，向所选的用户组提供订阅功能，具体取决于您对角色的使用方式。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-111">Depending on how you use roles, you can provide subscription functionality to selected groups of users by enabling or disabling subscription tasks for different roles.</span></span> <span data-ttu-id="e9e5e-112">用户可以通过两个任务来使用订阅功能：</span><span class="sxs-lookup"><span data-stu-id="e9e5e-112">Subscription features are available to users through two tasks:</span></span>  
+  
+-   <span data-ttu-id="e9e5e-113">通过“管理单独的订阅”任务，用户可以创建、修改和删除对特定报表的订阅。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-113">The "Manage individual subscriptions" task allows users to create, modify, and delete subscriptions for a specific report.</span></span> <span data-ttu-id="e9e5e-114">在预定义的角色中，“浏览器”和“报表生成器”角色包括此任务。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-114">In the predefined roles, this task is part of Browser and Report Builder roles.</span></span> <span data-ttu-id="e9e5e-115">包括此任务的角色分配只允许用户管理自己创建的那些订阅。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-115">Role assignments that include this task allow a user to manage only those subscriptions that he or she creates.</span></span>  
+  
+-   <span data-ttu-id="e9e5e-116">通过“管理所有订阅”任务，用户可以访问和修改所有订阅。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-116">The "Manage all subscriptions" task allows users to access and modify all subscriptions.</span></span> <span data-ttu-id="e9e5e-117">此任务是创建数据驱动订阅所必需的。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-117">This task is required to create data-driven subscriptions.</span></span> <span data-ttu-id="e9e5e-118">在预定义的角色中，只有“内容管理员”角色包括此任务。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-118">In predefined roles, only the Content Manager role includes this task.</span></span>  
+  
+## <a name="disabling-subscriptions"></a><span data-ttu-id="e9e5e-119">禁用订阅</span><span class="sxs-lookup"><span data-stu-id="e9e5e-119">Disabling Subscriptions</span></span>  
+ <span data-ttu-id="e9e5e-120">若要阻止用户创建订阅，请从该角色中清除“管理单独的订阅”任务。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-120">To prevent users from creating subscriptions, clear the "Manage individual subscriptions" task from the role.</span></span> <span data-ttu-id="e9e5e-121">删除此任务后，“订阅”页将不可用。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-121">When you remove this task, the Subscription pages are not available.</span></span> <span data-ttu-id="e9e5e-122">在报表管理器中，“我的订阅”页显示为空（不能将它删除），即便它以前包含订阅也是如此。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-122">In Report Manager, the My Subscriptions page appears to be empty (it cannot be deleted), even if it previously contained subscriptions.</span></span> <span data-ttu-id="e9e5e-123">删除与订阅相关的任务会使用户无法创建和修改订阅，但这不会删除现有的订阅。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-123">Removing subscription-related tasks prevents users from creating and modifying subscriptions, but does not delete existing subscriptions.</span></span> <span data-ttu-id="e9e5e-124">现有订阅将继续执行，直到被删除。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-124">Existing subscriptions will continue to execute until you delete them.</span></span> <span data-ttu-id="e9e5e-125">有关删除订阅的详细信息，请参阅[创建、修改和删除标准订阅 &#40;在纯模式&#41;中 Reporting Services ](subscriptions/create-and-manage-subscriptions-for-native-mode-report-servers.md)。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-125">For more information about deleting subscriptions, see [Create, Modify, and Delete Standard Subscriptions &#40;Reporting Services in Native Mode&#41;](subscriptions/create-and-manage-subscriptions-for-native-mode-report-servers.md).</span></span>  
+  
+ <span data-ttu-id="e9e5e-126">若要在 Report Server 上禁用订阅处理，可以 `ScheduleEventsAndReportDeliveryEnabled` `False` 在基于策略的管理的**Reporting Services 方面的外围应用配置**器中将属性设置为 [!INCLUDE[ssNoVersion](../includes/ssnoversion-md.md)] 。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-126">To disable subscription processing on a report server, you can set the `ScheduleEventsAndReportDeliveryEnabled` property to `False` in the **Surface Area Configuration for Reporting Services** facet of [!INCLUDE[ssNoVersion](../includes/ssnoversion-md.md)] Policy-Based Management.</span></span> <span data-ttu-id="e9e5e-127">这样可防止运行所有的计划操作。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-127">Doing so will prevent all scheduled operations from running.</span></span> <span data-ttu-id="e9e5e-128">您不能只是在报表服务器上关闭订阅处理。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-128">You cannot turn off just subscription processing on the report server.</span></span>  
+  
+ <span data-ttu-id="e9e5e-129">有关如何取消正在 Report Server 上处理的订阅的说明，请参阅[管理运行](subscriptions/manage-a-running-process.md)中的进程。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-129">For instructions on how to cancel subscription that is processing on the report server, see [Manage a Running Process](subscriptions/manage-a-running-process.md).</span></span>  
+  
+## <a name="disabling-delivery-extensions"></a><span data-ttu-id="e9e5e-130">禁用传递扩展插件</span><span class="sxs-lookup"><span data-stu-id="e9e5e-130">Disabling Delivery Extensions</span></span>  
+ <span data-ttu-id="e9e5e-131">对于有权创建对某个给定报表的订阅的任何用户，可以使用报表服务器上安装的所有传递扩展插件。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-131">All delivery extensions installed on a report server are available to any user who has permission to create a subscription to a given report.</span></span> <span data-ttu-id="e9e5e-132">可以自动使用并配置下列传递扩展插件：</span><span class="sxs-lookup"><span data-stu-id="e9e5e-132">The following delivery extensions are available and configured automatically:</span></span>  
+  
+-   <span data-ttu-id="e9e5e-133">Windows 文件共享</span><span class="sxs-lookup"><span data-stu-id="e9e5e-133">Windows File Share</span></span>  
+  
+-   <span data-ttu-id="e9e5e-134">SharePoint 库（只能从 SharePoint 站点使用，该站点与处于 SharePoint 集成模式的报表服务器集成在一起）</span><span class="sxs-lookup"><span data-stu-id="e9e5e-134">SharePoint Library (available only from a SharePoint site that is integrated with a  SharePoint integrated mode report server)</span></span>  
+  
+ <span data-ttu-id="e9e5e-135">电子邮件传递必须进行配置才能使用。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-135">E-mail delivery must be configured before it can be used.</span></span> <span data-ttu-id="e9e5e-136">如果未对它进行配置，它将不可用。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-136">If you do not configure it, it is not available.</span></span> <span data-ttu-id="e9e5e-137">有关详细信息，请参阅[为电子邮件传递配置报表服务器 &#40;SSRS Configuration Manager&#41;](../../2014/sql-server/install/configure-a-report-server-for-e-mail-delivery-ssrs-configuration-manager.md)。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-137">For more information, see [Configure a Report Server for E-Mail Delivery &#40;SSRS Configuration Manager&#41;](../../2014/sql-server/install/configure-a-report-server-for-e-mail-delivery-ssrs-configuration-manager.md).</span></span>  
+  
+ <span data-ttu-id="e9e5e-138">如果要关闭特定的扩展插件，则可以在 RSReportServer.config 文件中删除与该扩展插件相对应的条目。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-138">If you want to turn off specific extensions, you can remove extension entries in the RSReportServer.config file.</span></span> <span data-ttu-id="e9e5e-139">有关详细信息，请参阅[Rsreportserver.config 配置文件](report-server/rsreportserver-config-configuration-file.md)和[配置报表服务器，以便 &#40;SSRS Configuration Manager&#41;的电子邮件传递](../../2014/sql-server/install/configure-a-report-server-for-e-mail-delivery-ssrs-configuration-manager.md)。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-139">For more information, see [RSReportServer Configuration File](report-server/rsreportserver-config-configuration-file.md) and [Configure a Report Server for E-Mail Delivery &#40;SSRS Configuration Manager&#41;](../../2014/sql-server/install/configure-a-report-server-for-e-mail-delivery-ssrs-configuration-manager.md).</span></span>  
+  
+ <span data-ttu-id="e9e5e-140">删除某个传递扩展插件后，该插件在报表管理器或 SharePoint 站点中将不再可用。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-140">After you remove a delivery extension, it is no longer available in Report Manager or a SharePoint site.</span></span> <span data-ttu-id="e9e5e-141">删除传递扩展插件可能会使订阅变为非活动状态。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-141">Removing a delivery extension can result in inactive subscriptions.</span></span> <span data-ttu-id="e9e5e-142">在删除扩展插件之前，请确保删除这些订阅或者将它们配置为使用其他传递扩展插件。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-142">Be sure to delete the subscriptions or configure them to use a different delivery extension before removing an extension.</span></span>  
+  
+## <a name="in-this-section"></a><span data-ttu-id="e9e5e-143">本节内容</span><span class="sxs-lookup"><span data-stu-id="e9e5e-143">In this section</span></span>  
+ [<span data-ttu-id="e9e5e-144">使用我的订阅</span><span class="sxs-lookup"><span data-stu-id="e9e5e-144">Use My Subscriptions</span></span>](subscriptions/use-my-subscriptions-native-mode-report-server.md)  
+ <span data-ttu-id="e9e5e-145">介绍如何使用“我的订阅”页管理所拥有的订阅。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-145">Explains how to use the My Subscriptions page to manage the subscriptions you own.</span></span>  
+  
+ [<span data-ttu-id="e9e5e-146">暂停报表和订阅处理</span><span class="sxs-lookup"><span data-stu-id="e9e5e-146">Pause Report and Subscription Processing</span></span>](subscriptions/disable-or-pause-report-and-subscription-processing.md)  
+ <span data-ttu-id="e9e5e-147">介绍暂停报表处理的各种方法，例如，使用角色分配或禁用报表服务器资源。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-147">Describes the various ways to pause report processing, such as using role assignments or disabling report server resources.</span></span>  
+  
+ [<span data-ttu-id="e9e5e-148">控制报表分发</span><span class="sxs-lookup"><span data-stu-id="e9e5e-148">Control Report Distribution</span></span>](../../2014/reporting-services/control-report-distribution.md)  
+ <span data-ttu-id="e9e5e-149">介绍可用于控制报表分发的配置设置和传递选项。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-149">Describes configuration settings and delivery options you can use to control the distribution of reports.</span></span>  
+  
+ [<span data-ttu-id="e9e5e-150">监视 Reporting Services 订阅</span><span class="sxs-lookup"><span data-stu-id="e9e5e-150">Monitor Reporting Services Subscriptions</span></span>](subscriptions/monitor-reporting-services-subscriptions.md)  
+ <span data-ttu-id="e9e5e-151">介绍如何确定订阅是成功还是失败以及报表更改对现有订阅的影响。</span><span class="sxs-lookup"><span data-stu-id="e9e5e-151">Describes how you can determine whether a subscription succeeded or failed, as well as the effects of report changes on existing subscriptions.</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="e9e5e-152">另请参阅</span><span class="sxs-lookup"><span data-stu-id="e9e5e-152">See Also</span></span>  
+ [<span data-ttu-id="e9e5e-153">在纯模式下创建、修改和删除标准订阅 &#40;Reporting Services&#41;</span><span class="sxs-lookup"><span data-stu-id="e9e5e-153">Create, Modify, and Delete Standard Subscriptions &#40;Reporting Services in Native Mode&#41;</span></span>](subscriptions/create-and-manage-subscriptions-for-native-mode-report-servers.md)  
+  
+  

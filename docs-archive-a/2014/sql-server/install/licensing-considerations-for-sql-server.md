@@ -1,0 +1,29 @@
+---
+title: SQL Server 的许可注意事项 |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: database-engine
+ms.topic: conceptual
+helpviewer_keywords:
+- licensing
+ms.assetid: 20f624c2-0036-4f44-a2a8-a041af0a0966
+author: mashamsft
+ms.author: mathoma
+ms.openlocfilehash: f5e8717db0cad9ee6465b0b92ab44e308536b062
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87688443"
+---
+# <a name="licensing-considerations-for-sql-server"></a><span data-ttu-id="d2737-102">SQL Server 的许可注意事项</span><span class="sxs-lookup"><span data-stu-id="d2737-102">Licensing Considerations for SQL Server</span></span>
+  <span data-ttu-id="d2737-103">有关许可选项的详细信息 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] ，请参阅[此 Microsoft SQL Server Web 站点](https://www.microsoft.com/sqlserver/sql-server-2014.aspx)。</span><span class="sxs-lookup"><span data-stu-id="d2737-103">For more information about [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] licensing options, see [this Microsoft SQL Server Web site](https://www.microsoft.com/sqlserver/sql-server-2014.aspx).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="d2737-104">另请参阅</span><span class="sxs-lookup"><span data-stu-id="d2737-104">See Also</span></span>  
+ <span data-ttu-id="d2737-105">[关于 SQL Server 许可条款](../../../2014/getting-started/about-the-sql-server-license-terms.md) </span><span class="sxs-lookup"><span data-stu-id="d2737-105">[About the SQL Server License Terms](../../../2014/getting-started/about-the-sql-server-license-terms.md) </span></span>  
+ <span data-ttu-id="d2737-106">[Microsoft SQL Server 隐私声明](../../../2014/getting-started/microsoft-sql-server-privacy-statement.md) </span><span class="sxs-lookup"><span data-stu-id="d2737-106">[Microsoft SQL Server Privacy Statement](../../../2014/getting-started/microsoft-sql-server-privacy-statement.md) </span></span>  
+ [<span data-ttu-id="d2737-107">文档法律声明</span><span class="sxs-lookup"><span data-stu-id="d2737-107">Legal Notice for Documentation</span></span>](../../../2014/getting-started/legal-notice-for-documentation.md)  
+  
+  

@@ -1,0 +1,64 @@
+---
+title: 创建 CLR 函数 | Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: ''
+ms.topic: conceptual
+helpviewer_keywords:
+- CLR functions [SQL Server]
+- user-defined functions [SQL Server], CLR
+ms.assetid: a82df075-2243-4e19-bfe1-ae6d65dabd0f
+author: rothja
+ms.author: jroth
+ms.openlocfilehash: 9741646e43d48bc9336b91538c6065c09855c87d
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87687731"
+---
+# <a name="create-clr-functions"></a><span data-ttu-id="e11b9-102">创建 CLR 函数</span><span class="sxs-lookup"><span data-stu-id="e11b9-102">Create CLR Functions</span></span>
+  <span data-ttu-id="e11b9-103">可以在 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 实例中创建可在 [!INCLUDE[msCoName](../../includes/msconame-md.md)] [!INCLUDE[dnprdnshort](../../includes/dnprdnshort-md.md)] 公共语言运行时 (CLR) 中创建的程序集中进行编程的数据库对象。</span><span class="sxs-lookup"><span data-stu-id="e11b9-103">You can create a database object inside an instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] that is programmed in an assembly created in the [!INCLUDE[msCoName](../../includes/msconame-md.md)] [!INCLUDE[dnprdnshort](../../includes/dnprdnshort-md.md)] common language runtime (CLR).</span></span> <span data-ttu-id="e11b9-104">可以充分利用公共语言运行时所提供的丰富的编程模式的数据库对象包括聚合函数、函数、存储过程、触发器以及类型。</span><span class="sxs-lookup"><span data-stu-id="e11b9-104">Database objects that can leverage the rich programming model provided by the common language runtime include aggregate functions, functions, stored procedures, triggers, and types.</span></span>  
+  
+ <span data-ttu-id="e11b9-105">在 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 中创建 CLR 函数分为下列几个步骤：</span><span class="sxs-lookup"><span data-stu-id="e11b9-105">Creating a CLR function in [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] involves the following steps:</span></span>  
+  
+-   <span data-ttu-id="e11b9-106">使用 [!INCLUDE[dnprdnshort](../../includes/dnprdnshort-md.md)]支持的语言将函数定义为类的静态方法。</span><span class="sxs-lookup"><span data-stu-id="e11b9-106">Define the function as a static method of a class in a language supported by the [!INCLUDE[dnprdnshort](../../includes/dnprdnshort-md.md)].</span></span> <span data-ttu-id="e11b9-107">有关如何在公共语言运行时中对函数进行编程的详细信息，请参阅 [CLR 用户定义函数](../clr-integration-database-objects-user-defined-functions/clr-user-defined-functions.md)。</span><span class="sxs-lookup"><span data-stu-id="e11b9-107">For more information about how to program functions in the common language runtime, see [CLR User-Defined Functions](../clr-integration-database-objects-user-defined-functions/clr-user-defined-functions.md).</span></span> <span data-ttu-id="e11b9-108">然后，使用适当的语言编译器编译该类，在 [!INCLUDE[dnprdnshort](../../includes/dnprdnshort-md.md)] 中生成程序集。</span><span class="sxs-lookup"><span data-stu-id="e11b9-108">Then, compile the class to build an assembly in the [!INCLUDE[dnprdnshort](../../includes/dnprdnshort-md.md)] by using the appropriate language compiler.</span></span>  
+  
+-   <span data-ttu-id="e11b9-109">使用 CREATE ASSEMBLY 语句在 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 中注册程序集。</span><span class="sxs-lookup"><span data-stu-id="e11b9-109">Register the assembly in [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] by using the CREATE ASSEMBLY statement.</span></span> <span data-ttu-id="e11b9-110">有关 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 中的程序集的详细信息，请参阅[程序集（数据库引擎）](../clr-integration/assemblies-database-engine.md)。</span><span class="sxs-lookup"><span data-stu-id="e11b9-110">For more information about assemblies in [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)], see [Assemblies &#40;Database Engine&#41;](../clr-integration/assemblies-database-engine.md).</span></span>  
+  
+-   <span data-ttu-id="e11b9-111">通过使用 [CREATE FUNCTION](/sql/t-sql/statements/create-function-transact-sql) 语句创建引用注册程序集的函数。</span><span class="sxs-lookup"><span data-stu-id="e11b9-111">Create the function that references the registered assembly by using the [CREATE FUNCTION](/sql/t-sql/statements/create-function-transact-sql) statement.</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="e11b9-112">在 [!INCLUDE[msCoName](../../includes/msconame-md.md)][!INCLUDE[vsprvs](../../includes/vsprvs-md.md)] 中部署 SQL Server 项目将在为该项目指定的数据库中注册程序集。</span><span class="sxs-lookup"><span data-stu-id="e11b9-112">Deploying a SQL Server Project in [!INCLUDE[msCoName](../../includes/msconame-md.md)][!INCLUDE[vsprvs](../../includes/vsprvs-md.md)] registers an assembly in the database that was specified for the project.</span></span> <span data-ttu-id="e11b9-113">部署项目时，还会在数据库中为使用 `SqlFunction` 属性注释的所有方法创建 CLR 函数。</span><span class="sxs-lookup"><span data-stu-id="e11b9-113">Deploying the project also creates CLR functions in the database for all methods annotated with the `SqlFunction` attribute.</span></span> <span data-ttu-id="e11b9-114">有关详细信息，请参阅 [Deploying CLR Database Objects](../clr-integration/deploying-clr-database-objects.md)。</span><span class="sxs-lookup"><span data-stu-id="e11b9-114">For more information, see [Deploying CLR Database Objects](../clr-integration/deploying-clr-database-objects.md).</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="e11b9-115">默认情况下，关闭 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 执行 CLR 代码的功能。</span><span class="sxs-lookup"><span data-stu-id="e11b9-115">The ability of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] to execute CLR code is off by default.</span></span> <span data-ttu-id="e11b9-116">你可以创建、更改和删除引用托管代码模块的数据库对象，但是除非通过使用 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] sp_configure (Transact-SQL) [启用了](../../database-engine/configure-windows/clr-enabled-server-configuration-option.md) clr enabled 选项 [，否则这些引用将不会在](/sql/relational-databases/system-stored-procedures/sp-configure-transact-sql)中执行。</span><span class="sxs-lookup"><span data-stu-id="e11b9-116">You can create, alter, and drop database objects that reference managed code modules, but these references will not execute in [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] unless the [clr enabled Option](../../database-engine/configure-windows/clr-enabled-server-configuration-option.md) is enabled by using [sp_configure (Transact-SQL)](/sql/relational-databases/system-stored-procedures/sp-configure-transact-sql).</span></span>  
+  
+## <a name="accessing-external-resources"></a><span data-ttu-id="e11b9-117">访问外部资源</span><span class="sxs-lookup"><span data-stu-id="e11b9-117">Accessing External Resources</span></span>  
+ <span data-ttu-id="e11b9-118">可以使用 CLR 函数访问外部资源，例如文件、网络资源、Web 服务及其他数据库（包括 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]远程实例）。</span><span class="sxs-lookup"><span data-stu-id="e11b9-118">CLR functions can be used to access external resources such as files, network resources, Web Services, other databases (including remote instances of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]).</span></span> <span data-ttu-id="e11b9-119">这可以通过使用 [!INCLUDE[dnprdnshort](../../includes/dnprdnshort-md.md)]中的各种类（例如 `System.IO`、 `System.WebServices`及 `System.Sql`等）来实现。</span><span class="sxs-lookup"><span data-stu-id="e11b9-119">This can be achieved by using various classes in the [!INCLUDE[dnprdnshort](../../includes/dnprdnshort-md.md)], such as `System.IO`, `System.WebServices`, `System.Sql`, and so on.</span></span> <span data-ttu-id="e11b9-120">至少应将包含此类函数的程序集配置为设置了 EXTERNAL_ACCESS 权限，才能实现此目的。</span><span class="sxs-lookup"><span data-stu-id="e11b9-120">The assembly that contains such functions should at least be configured with the EXTERNAL_ACCESS permission set for this purpose.</span></span> <span data-ttu-id="e11b9-121">有关详细信息，请参阅 [CREATE ASSEMBLY (Transact-SQL)](/sql/t-sql/statements/create-assembly-transact-sql)支持的语言将函数定义为类的静态方法。</span><span class="sxs-lookup"><span data-stu-id="e11b9-121">For more information, see [CREATE ASSEMBLY &#40;Transact-SQL&#41;](/sql/t-sql/statements/create-assembly-transact-sql).</span></span> <span data-ttu-id="e11b9-122">可以使用 SQL 客户端托管访问接口访问 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]远程实例。</span><span class="sxs-lookup"><span data-stu-id="e11b9-122">The SQL Client Managed Provider can be used to access remote instances of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)].</span></span> <span data-ttu-id="e11b9-123">但在 CLR 函数中不支持与发起服务器的环回连接。</span><span class="sxs-lookup"><span data-stu-id="e11b9-123">However, loopback connections to the originating server are not supported in CLR functions.</span></span>  
+  
+ <span data-ttu-id="e11b9-124">**创建、修改或删除 SQL Server 中的程序集**</span><span class="sxs-lookup"><span data-stu-id="e11b9-124">**To create, modify, or drop assemblies in SQL Server**</span></span>  
+  
+-   [<span data-ttu-id="e11b9-125">CREATE ASSEMBLY (Transact-SQL)</span><span class="sxs-lookup"><span data-stu-id="e11b9-125">CREATE ASSEMBLY &#40;Transact-SQL&#41;</span></span>](/sql/t-sql/statements/create-assembly-transact-sql)  
+  
+-   [<span data-ttu-id="e11b9-126">ALTER ASSEMBLY (Transact-SQL)</span><span class="sxs-lookup"><span data-stu-id="e11b9-126">ALTER ASSEMBLY &#40;Transact-SQL&#41;</span></span>](/sql/t-sql/statements/alter-assembly-transact-sql)  
+  
+-   [<span data-ttu-id="e11b9-127">DROP ASSEMBLY (Transact-SQL)</span><span class="sxs-lookup"><span data-stu-id="e11b9-127">DROP ASSEMBLY &#40;Transact-SQL&#41;</span></span>](/sql/t-sql/statements/drop-assembly-transact-sql)  
+  
+ <span data-ttu-id="e11b9-128">**创建 CLR 函数**</span><span class="sxs-lookup"><span data-stu-id="e11b9-128">**To create a CLR function**</span></span>  
+  
+-   [<span data-ttu-id="e11b9-129">CREATE FUNCTION (Transact-SQL)</span><span class="sxs-lookup"><span data-stu-id="e11b9-129">CREATE FUNCTION &#40;Transact-SQL&#41;</span></span>](/sql/t-sql/statements/create-function-transact-sql)  
+  
+## <a name="accessing-native-code"></a><span data-ttu-id="e11b9-130">访问本机代码</span><span class="sxs-lookup"><span data-stu-id="e11b9-130">Accessing Native Code</span></span>  
+ <span data-ttu-id="e11b9-131">通过使用托管代码中的 PInvoke，可以使用 CLR 函数来访问本机（非托管）代码，如用 C 或 C++ 编写的代码（有关详细信息，请参阅 [从托管代码调用本机函数](https://go.microsoft.com/fwlink/?LinkID=181929) ）。</span><span class="sxs-lookup"><span data-stu-id="e11b9-131">CLR functions can be used to access native (unmanaged) code, such as code written in C or C++, via the use of PInvoke from managed code (see [Calling Native Functions from Managed Code](https://go.microsoft.com/fwlink/?LinkID=181929) for details).</span></span> <span data-ttu-id="e11b9-132">这样，您就可以重新将旧代码用作 CLR UDF，或在本机代码中使用性能关键的 UDF。</span><span class="sxs-lookup"><span data-stu-id="e11b9-132">This can allow you to re-use legacy code as CLR UDFs, or write performance-critical UDFs in native code.</span></span> <span data-ttu-id="e11b9-133">这要求使用 UNSAFE（非安全）程序集。</span><span class="sxs-lookup"><span data-stu-id="e11b9-133">This requires using an UNSAFE assembly.</span></span> <span data-ttu-id="e11b9-134">有关使用 UNSAFE 程序集的注意事项，请参阅 [CLR Integration Code Access Security](../clr-integration/security/clr-integration-code-access-security.md) 。</span><span class="sxs-lookup"><span data-stu-id="e11b9-134">See [CLR Integration Code Access Security](../clr-integration/security/clr-integration-code-access-security.md) for cautions about use of UNSAFE assemblies.</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="e11b9-135">另请参阅</span><span class="sxs-lookup"><span data-stu-id="e11b9-135">See Also</span></span>  
+ <span data-ttu-id="e11b9-136">[创建用户定义函数（数据库引擎）](create-user-defined-functions-database-engine.md) </span><span class="sxs-lookup"><span data-stu-id="e11b9-136">[Create User-defined Functions &#40;Database Engine&#41;](create-user-defined-functions-database-engine.md) </span></span>  
+ <span data-ttu-id="e11b9-137">[创建用户定义聚合](create-user-defined-aggregates.md) </span><span class="sxs-lookup"><span data-stu-id="e11b9-137">[Create User-defined Aggregates](create-user-defined-aggregates.md) </span></span>  
+ <span data-ttu-id="e11b9-138">[执行用户定义函数](execute-user-defined-functions.md) </span><span class="sxs-lookup"><span data-stu-id="e11b9-138">[Execute User-defined Functions](execute-user-defined-functions.md) </span></span>  
+ <span data-ttu-id="e11b9-139">[查看用户定义函数](view-user-defined-functions.md) </span><span class="sxs-lookup"><span data-stu-id="e11b9-139">[View User-defined Functions](view-user-defined-functions.md) </span></span>  
+ [<span data-ttu-id="e11b9-140">公共语言运行时 (CLR) 集成编程概念</span><span class="sxs-lookup"><span data-stu-id="e11b9-140">Common Language Runtime &#40;CLR&#41; Integration Programming Concepts</span></span>](../clr-integration/common-language-runtime-clr-integration-programming-concepts.md)  
+  
+  

@@ -1,0 +1,47 @@
+---
+title: 重新初始化订阅 | Microsoft Docs
+ms.custom: ''
+ms.date: 03/06/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: replication
+ms.topic: conceptual
+helpviewer_keywords:
+- initializing subscriptions [SQL Server replication], reinitializing
+- subscriptions [SQL Server replication], reinitializing
+- reinitializing subscriptions
+ms.assetid: fb13712b-e7ad-4f1f-b605-4554bad0cb60
+author: MashaMSFT
+ms.author: mathoma
+ms.openlocfilehash: 6bf9c68f66a32d1a5ddcf08b845396f815385e83
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87693719"
+---
+# <a name="reinitialize-subscriptions"></a><span data-ttu-id="5b826-102">重新初始化订阅</span><span class="sxs-lookup"><span data-stu-id="5b826-102">Reinitialize Subscriptions</span></span>
+  <span data-ttu-id="5b826-103">重新初始化订阅包括对一个或多个订阅服务器应用一个或多个项目的新快照：事务复制和快照复制允许对各个项目单独重新初始化；而合并复制需要对所有项目重新初始化。</span><span class="sxs-lookup"><span data-stu-id="5b826-103">Reinitializing a subscription involves applying a new snapshot of one or more articles to one or more Subscribers: transactional and snapshot replication allow individual articles to be reinitialized; merge replication requires all articles to be reinitialized.</span></span> <span data-ttu-id="5b826-104">无法重新初始化对等事务复制拓扑中的节点。</span><span class="sxs-lookup"><span data-stu-id="5b826-104">Nodes in a peer-to-peer transactional replication topology cannot be reinitialized.</span></span> <span data-ttu-id="5b826-105">如果需要确保节点有新的数据副本，请在该节点上还原备份。</span><span class="sxs-lookup"><span data-stu-id="5b826-105">If you need to ensure a node has a new copy of the data, restore a backup at the node.</span></span> <span data-ttu-id="5b826-106">对于下列一种或两种情况，将进行重新初始化：</span><span class="sxs-lookup"><span data-stu-id="5b826-106">Reinitialization occurs for one of two reasons:</span></span>  
+  
+-   <span data-ttu-id="5b826-107">将订阅显式标记为重新初始化。</span><span class="sxs-lookup"><span data-stu-id="5b826-107">You explicitly mark a subscription for reinitialization.</span></span>  
+  
+-   <span data-ttu-id="5b826-108">执行一个需要重新初始化的操作，如属性更改。</span><span class="sxs-lookup"><span data-stu-id="5b826-108">You perform an action, such as a property change, that requires a reinitialization.</span></span> <span data-ttu-id="5b826-109">有关需要重新初始化的操作的详细信息，请参阅[更改发布和项目属性](publish/change-publication-and-article-properties.md)。</span><span class="sxs-lookup"><span data-stu-id="5b826-109">For more information about actions that require reinitialization, see [Change Publication and Article Properties](publish/change-publication-and-article-properties.md).</span></span>  
+  
+ <span data-ttu-id="5b826-110">在这两种情况中，最新的快照将于下次分发代理或合并代理运行时应用到订阅服务器。</span><span class="sxs-lookup"><span data-stu-id="5b826-110">In both cases, the most recent snapshot is applied to the Subscriber the next time the Distribution Agent or the Merge Agent runs.</span></span> <span data-ttu-id="5b826-111">对于快照复制和事务复制，当发生重新初始化时，订阅服务器上所做的但尚未与发布服务器同步的任何更改都将在应用新快照时被覆盖。</span><span class="sxs-lookup"><span data-stu-id="5b826-111">For snapshot and transactional replication, when reinitialization occurs, any changes made at the Subscriber, but not yet synchronized with the Publisher, are overwritten by the application of the new snapshot.</span></span>  
+  
+ <span data-ttu-id="5b826-112">对于合并复制，可以选择在应用快照之前从订阅服务器上载所有数据更改。</span><span class="sxs-lookup"><span data-stu-id="5b826-112">For merge replication, you can choose to have all the data changes uploaded from the Subscriber before the snapshot is applied.</span></span> <span data-ttu-id="5b826-113">来自发布服务器的任何挂起架构更改都将应用到订阅服务器，之后，自上次同步以来订阅服务器上所做的任何更新将在重新应用快照之前传播到发布服务器。</span><span class="sxs-lookup"><span data-stu-id="5b826-113">Any pending schema changes from the Publisher are applied at the Subscriber, and then any updates that have been made at the Subscriber since the last synchronization are propagated to the Publisher before the snapshot is reapplied.</span></span> <span data-ttu-id="5b826-114">该行为由 **upload_first** 和 **automatic_reinitialization_policy** 属性控制；有关详细信息，请参阅 [Reinitialize a Subscription](reinitialize-a-subscription.md)。</span><span class="sxs-lookup"><span data-stu-id="5b826-114">This behavior is controlled by the **upload_first** and **automatic_reinitialization_policy** properties; for more information, see [Reinitialize a Subscription](reinitialize-a-subscription.md).</span></span> <span data-ttu-id="5b826-115">如果使用 SQL Server Management Studio 或复制监视器将订阅标记为重新初始化，那么 **“重新初始化订阅”** 对话框中将给出一个选项，用来首先上载更改。</span><span class="sxs-lookup"><span data-stu-id="5b826-115">If you mark a subscription for reinitialization using SQL Server Management Studio or Replication Monitor, you are given an option in the **Reinitialize Subscription(s)** dialog box to upload changes first.</span></span>  
+  
+> [!IMPORTANT]  
+>  <span data-ttu-id="5b826-116">如果在合并发布中添加、删除或更改参数化筛选器，则在重新初始化过程中，订阅服务器上的挂起更改将无法上载到发布服务器。</span><span class="sxs-lookup"><span data-stu-id="5b826-116">If you add, drop, or change a parameterized filter in a merge publication, pending changes at the Subscriber cannot be uploaded to the Publisher during reinitialization.</span></span> <span data-ttu-id="5b826-117">若要上载挂起的更改，请在更改筛选器前同步所有订阅。</span><span class="sxs-lookup"><span data-stu-id="5b826-117">If you want to upload pending changes, synchronize all subscriptions before changing the filter.</span></span>  
+  
+ <span data-ttu-id="5b826-118">如果在创建发布时指定了不对订阅服务器应用初始快照，并将订阅标记为要重新初始化，则不应用快照。</span><span class="sxs-lookup"><span data-stu-id="5b826-118">If, you specified that no initial snapshot was to be applied to the Subscriber when you created the subscription, and you then mark the subscription for reinitialization, a snapshot is not applied.</span></span> <span data-ttu-id="5b826-119">有关详细信息，请参阅 [初始化事务订阅（不使用快照）](initialize-a-transactional-subscription-without-a-snapshot.md)中手动初始化订阅。</span><span class="sxs-lookup"><span data-stu-id="5b826-119">For more information, see [Initialize a Transactional Subscription Without a Snapshot](initialize-a-transactional-subscription-without-a-snapshot.md).</span></span>  
+  
+ <span data-ttu-id="5b826-120">**重新初始化订阅**</span><span class="sxs-lookup"><span data-stu-id="5b826-120">**To reinitialize a subscription**</span></span>  
+  
+ <span data-ttu-id="5b826-121">若要重新初始化订阅中的所有项目，请使用 [!INCLUDE[ssManStudioFull](../../includes/ssmanstudiofull-md.md)]、存储过程或复制管理对象 (RMO)。</span><span class="sxs-lookup"><span data-stu-id="5b826-121">To reinitialize all articles in a subscription, use [!INCLUDE[ssManStudioFull](../../includes/ssmanstudiofull-md.md)], stored procedures or Replication Management Objects (RMO).</span></span> <span data-ttu-id="5b826-122">若要重新初始化快照发布和事务发布中的单个项目，必须使用存储过程。</span><span class="sxs-lookup"><span data-stu-id="5b826-122">To reinitialize individual articles in snapshot and transactional publications, you must use stored procedures.</span></span> <span data-ttu-id="5b826-123">有关详细信息，请参阅 [Reinitialize a Subscription](reinitialize-a-subscription.md)。</span><span class="sxs-lookup"><span data-stu-id="5b826-123">For more information, see [Reinitialize a Subscription](reinitialize-a-subscription.md).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="5b826-124">另请参阅</span><span class="sxs-lookup"><span data-stu-id="5b826-124">See Also</span></span>  
+ <span data-ttu-id="5b826-125">[初始化订阅](initialize-a-subscription.md) </span><span class="sxs-lookup"><span data-stu-id="5b826-125">[Initialize a Subscription](initialize-a-subscription.md) </span></span>  
+ [<span data-ttu-id="5b826-126">订阅过期和停用</span><span class="sxs-lookup"><span data-stu-id="5b826-126">Subscription Expiration and Deactivation</span></span>](subscription-expiration-and-deactivation.md)  
+  
+  

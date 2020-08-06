@@ -1,0 +1,73 @@
+---
+title: " (Excel) 的数据挖掘客户端跟踪 |Microsoft Docs"
+ms.custom: ''
+ms.date: 03/06/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: analysis-services
+ms.topic: conceptual
+helpviewer_keywords:
+- tracer
+- connections
+ms.assetid: 4aea3e17-cd0f-48dd-8f22-b54a6c716426
+author: minewiskan
+ms.author: owend
+ms.openlocfilehash: 74e1a5be21aa6981ccefa76f7bb1892d8d517be5
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87692537"
+---
+# <a name="trace-data-mining-client-for-excel"></a><span data-ttu-id="dbebc-102">跟踪（Excel 数据挖掘客户端）</span><span class="sxs-lookup"><span data-stu-id="dbebc-102">Trace (Data Mining Client for Excel)</span></span>
+  <span data-ttu-id="dbebc-103">![“跟踪”按钮](media/misc-trace.gif "“跟踪”按钮")</span><span class="sxs-lookup"><span data-stu-id="dbebc-103">![Trace button](media/misc-trace.gif "Trace button")</span></span>
+
+ <span data-ttu-id="dbebc-104">"**跟踪**器" 对话框可帮助您监视发送到用于数据挖掘的实例的语句 [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] 。</span><span class="sxs-lookup"><span data-stu-id="dbebc-104">The **Tracer** dialog box helps you monitor the statements that are sent to the instance of [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] that you are using for data mining.</span></span> <span data-ttu-id="dbebc-105">在您创建了与实例的连接后 [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] ，客户端和服务器之间的所有交互都记录在 "**跟踪**器" 窗格中，其中包括创建结构、添加挖掘模型和进行预测的语句以及从服务器返回的某些消息。</span><span class="sxs-lookup"><span data-stu-id="dbebc-105">After you have created a connection to an instance of [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)], all interactions between the client and the server are logged in the **Tracer** pane, including statements that create structures, add mining models, and make predictions, as well as some messages returning from the server.</span></span>
+
+ <span data-ttu-id="dbebc-106">根据所请求的操作，该语句可能是数据挖掘扩展插件 (DMX) 数据定义查询或数据操作查询、Analysis Services 脚本语言 (ASSL) 包或者是对 Analysis Services 储存过程的调用。</span><span class="sxs-lookup"><span data-stu-id="dbebc-106">Depending on the action that is requested, the statement might be a Data Mining Extensions (DMX) data definition query or data manipulation query, an Analysis Services Scripting Language (ASSL) packet, or a call to an Analysis Services stored procedure.</span></span> <span data-ttu-id="dbebc-107">但不会显示实际的数值结果和数据值。</span><span class="sxs-lookup"><span data-stu-id="dbebc-107">Actual numerical results and data values are not shown, however.</span></span>
+
+ <span data-ttu-id="dbebc-108">**Trace**仅监视当前连接，并且不存储 "**跟踪**器" 对话框的内容。</span><span class="sxs-lookup"><span data-stu-id="dbebc-108">**Trace** monitors only the current connection, and the contents of the **Tracer** dialog box are not stored.</span></span>
+
+## <a name="options"></a><span data-ttu-id="dbebc-109">选项</span><span class="sxs-lookup"><span data-stu-id="dbebc-109">Options</span></span>
+ <span data-ttu-id="dbebc-110">"跟踪器" 窗格列出从 Excel 客户端发送到服务器的所有语句。</span><span class="sxs-lookup"><span data-stu-id="dbebc-110">Tracer pane Lists all statements sent from the Excel client to the server.</span></span>
+
+ <span data-ttu-id="dbebc-111">根据所请求的操作，该语句可能是 DMX 数据操作或数据定义语句、对 Analysis Services 储存过程的调用或者是 XML/A 数据包。</span><span class="sxs-lookup"><span data-stu-id="dbebc-111">Depending on the action that is being requested, the statement might be a DMX data manipulation or data definition statement, a call to an Analysis Services stored procedure, or an XML/A packet.</span></span>
+
+ <span data-ttu-id="dbebc-112">**当前连接**单击此链接可显示当前连接的定义。</span><span class="sxs-lookup"><span data-stu-id="dbebc-112">**Current Connection** Click to display the definition of the current connection.</span></span> <span data-ttu-id="dbebc-113">该定义包括连接的名称、访问接口、数据源、目录、事务最近使用该连接的时间以及当前状态（“打开”、“不活动”等）。</span><span class="sxs-lookup"><span data-stu-id="dbebc-113">The definition includes the name of the connection, the provider, data source, and catalog, the time the connection was last used for a transaction, and the current state (Open, Inactive).</span></span>
+
+ <span data-ttu-id="dbebc-114">**使用会话模型**选中此复选框可以在服务器上将数据挖掘模型和结构存储为临时对象。</span><span class="sxs-lookup"><span data-stu-id="dbebc-114">**Use session models** Select this check box to store data mining models and structures as temporary objects on the server.</span></span> <span data-ttu-id="dbebc-115">您创建的模型和结构仅在当前会话期间可用。</span><span class="sxs-lookup"><span data-stu-id="dbebc-115">The models and structures that you create will be available only for the duration of the current session.</span></span>
+
+ <span data-ttu-id="dbebc-116">取消选择此选项会通过将模型或结构存储到 Analysis Services 服务器中进行保存。</span><span class="sxs-lookup"><span data-stu-id="dbebc-116">Deselect this option to save your models or structures by storing them on an Analysis Services server.</span></span>
+
+ <span data-ttu-id="dbebc-117">**注意**只有在使用 Excel 表分析工具时，才能使用临时对象。</span><span class="sxs-lookup"><span data-stu-id="dbebc-117">**Note** The ability to use temporary objects is available only when you are using the Table Analysis Tools for Excel.</span></span> <span data-ttu-id="dbebc-118">Visio 数据挖掘模板和 Excel 数据挖掘客户端要求将结构和模型存储到服务器中。</span><span class="sxs-lookup"><span data-stu-id="dbebc-118">The Visio Data Mining templates and the Data Mining Client for Excel require structures and models to be stored on the server.</span></span>
+
+## <a name="tracing-temporary-structures-and-models"></a><span data-ttu-id="dbebc-119">跟踪临时结构和模型</span><span class="sxs-lookup"><span data-stu-id="dbebc-119">Tracing Temporary Structures and Models</span></span>
+ <span data-ttu-id="dbebc-120">如果使用的是表分析工具（默认情况下，该工具创建临时结构和模型），则服务器和客户端之间的活动将受到监视，但不会将您创建的模型或结构永久保存到服务器中。</span><span class="sxs-lookup"><span data-stu-id="dbebc-120">If you are using the Table Analysis Tools, which by default create temporary structures and models, the activity between the server and the client is monitored, but the models or structures that you create are not saved permanently to the server.</span></span>
+
+ <span data-ttu-id="dbebc-121">如果要在使用其中一个表分析工具时保留你的工作，则可以取消选择选项 "**使用会话模型**"，以使你的模型永久保存到服务器上。</span><span class="sxs-lookup"><span data-stu-id="dbebc-121">If you want to preserve your work when using one of the Table Analysis Tools, you can deselect the option, **Use session models**, to cause your models to be permanently saved on the server.</span></span> <span data-ttu-id="dbebc-122">您还可以将 "**跟踪**器" 窗格中的语句复制到文件中，以便您可以在以后重新创建您的工作。</span><span class="sxs-lookup"><span data-stu-id="dbebc-122">You can also copy the statements in the **Tracer** pane to a file so that you can re-create your work later.</span></span>
+
+## <a name="understanding-sessions"></a><span data-ttu-id="dbebc-123">了解会话</span><span class="sxs-lookup"><span data-stu-id="dbebc-123">Understanding Sessions</span></span>
+ <span data-ttu-id="dbebc-124">连接到 [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] 实例时，数据挖掘外接程序将启动一个会话。</span><span class="sxs-lookup"><span data-stu-id="dbebc-124">When you connect to an instance of [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)], the data mining add-in initiates a session.</span></span> <span data-ttu-id="dbebc-125">每个会话都会收到一个会话标识符，它用于标识 [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] 实例上的现有会话。</span><span class="sxs-lookup"><span data-stu-id="dbebc-125">Each session receives a session identifier that identifies an existing session on the [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] instance.</span></span> <span data-ttu-id="dbebc-126">但会话标识符并不保证会话保持有效。</span><span class="sxs-lookup"><span data-stu-id="dbebc-126">However, a session identifier does not guarantee that a session remains valid.</span></span> <span data-ttu-id="dbebc-127">如果会话超时或与会话相关联的连接断开，则该会话将过期。</span><span class="sxs-lookup"><span data-stu-id="dbebc-127">The session can expire if the session times out or the connection associated with the session is disconnected.</span></span> <span data-ttu-id="dbebc-128">如果会话过期且不再有效，则 [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] 将结束该会话，回滚正在处理的所有事务。</span><span class="sxs-lookup"><span data-stu-id="dbebc-128">If the session expires and is no longer valid, [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] ends the session and rolls back any transactions that are in process.</span></span> <span data-ttu-id="dbebc-129">如果使用不再有效的会话标识符发送消息，则相应消息将失败，并显示一条错误指示无法找到指定的会话。</span><span class="sxs-lookup"><span data-stu-id="dbebc-129">If a message is sent with a session identifier that is no longer valid, the message fails with an error indicating that the specified session cannot be found.</span></span>
+
+ <span data-ttu-id="dbebc-130">虽然某些数据挖掘模型显式存储在服务器上，但会话挖掘模型和结构不会显式存储在服务器上，并且会话数据挖掘活动的记录不会保留下来。</span><span class="sxs-lookup"><span data-stu-id="dbebc-130">Although some data mining models are explicitly stored on the server, session mining models and structures are not, and no record is persisted of session data mining activity.</span></span> <span data-ttu-id="dbebc-131">因为只要结束会话便会删除临时挖掘模型和结构，所以必须在保存任何要保留的工作之后再关闭 Excel 工作簿。</span><span class="sxs-lookup"><span data-stu-id="dbebc-131">Because temporary mining models and structures are deleted as soon as you end the session, you should avoid closing your Excel workbook until after you have saved any work that you want to keep.</span></span>
+
+## <a name="changing-connections"></a><span data-ttu-id="dbebc-132">更改连接</span><span class="sxs-lookup"><span data-stu-id="dbebc-132">Changing Connections</span></span>
+ <span data-ttu-id="dbebc-133">更改连接不会删除对先前连接的跟踪。</span><span class="sxs-lookup"><span data-stu-id="dbebc-133">Changing connections does not delete traces from previous connections.</span></span> <span data-ttu-id="dbebc-134">只有关闭工作簿才会清除会话。</span><span class="sxs-lookup"><span data-stu-id="dbebc-134">Only closing the workbook erases the session.</span></span>
+
+ <span data-ttu-id="dbebc-135">如果在 Excel 工作簿中工作时更改连接，则不会在 "**跟踪**器" 窗格中记录连接更改。</span><span class="sxs-lookup"><span data-stu-id="dbebc-135">If you change connections while working in an Excel workbook, the change of connections is not recorded in the **Tracer** pane.</span></span> <span data-ttu-id="dbebc-136">若要显式显示当前连接的名称和状态，必须单击 "**当前连接**"。</span><span class="sxs-lookup"><span data-stu-id="dbebc-136">To explicitly display the name and status of the current connection, you must click **Current Connection**.</span></span>
+
+## <a name="understanding-statements-in-the-tracer"></a><span data-ttu-id="dbebc-137">了解跟踪器中的语句</span><span class="sxs-lookup"><span data-stu-id="dbebc-137">Understanding Statements in the Tracer</span></span>
+ <span data-ttu-id="dbebc-138">DMX 是一种可用于在 [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] 中创建和使用数据挖掘模型的语言。</span><span class="sxs-lookup"><span data-stu-id="dbebc-138">DMX is a language that you can use to create and work with data mining models in [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)].</span></span> <span data-ttu-id="dbebc-139">您可以使用 DMX 创建新数据挖掘模型的结构，为这些模型定型，并对其进行浏览、管理和预测。</span><span class="sxs-lookup"><span data-stu-id="dbebc-139">You can use DMX to create the structure of new data mining models, train these models, and to browse, manage, and predict against them.</span></span> <span data-ttu-id="dbebc-140">DMX 由数据定义语言 (DDL) 语句、数据操作语言 (DML) 语句以及函数和运算符组成。</span><span class="sxs-lookup"><span data-stu-id="dbebc-140">DMX is composed of data definition language (DDL) statements, data manipulation language (DML) statements, and functions and operators.</span></span>
+
+ <span data-ttu-id="dbebc-141">全面介绍 DMX 语句及其语法超出了本主题的讨论范围。</span><span class="sxs-lookup"><span data-stu-id="dbebc-141">A complete discussion of DMX statements and their syntax is beyond the scope of this topic.</span></span> <span data-ttu-id="dbebc-142">但是，您可以使用 "**跟踪**器" 窗格中的信息来查找有关 DMX 语句行为的详细信息。</span><span class="sxs-lookup"><span data-stu-id="dbebc-142">However, you can use the information in the **Tracer** pane to find detailed information about the behavior of a DMX statement.</span></span> <span data-ttu-id="dbebc-143">Excel 数据挖掘外接程序还可帮助您生成复杂的 DMX 语句，并与 [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] 服务器进行交互。</span><span class="sxs-lookup"><span data-stu-id="dbebc-143">The Data Mining Add-ins for Excel can also help you build complex DMX statements and interact with an [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] server.</span></span> <span data-ttu-id="dbebc-144">有关详细信息，请参阅[查询 &#40;SQL Server 数据挖掘外接程序&#41;](query-sql-server-data-mining-add-ins.md)。</span><span class="sxs-lookup"><span data-stu-id="dbebc-144">For more information, see [Query &#40;SQL Server Data Mining Add-ins&#41;](query-sql-server-data-mining-add-ins.md).</span></span>
+
+> [!NOTE]
+>  <span data-ttu-id="dbebc-145">许多 DMX 语句都已参数化。</span><span class="sxs-lookup"><span data-stu-id="dbebc-145">Many DMX statements are parameterized.</span></span> <span data-ttu-id="dbebc-146">对于简单类型，参数的值在语句下列出。</span><span class="sxs-lookup"><span data-stu-id="dbebc-146">For simple types, the values of the parameters are listed under the statement.</span></span> <span data-ttu-id="dbebc-147">但对于复杂类型，则仅列出参数的类型。</span><span class="sxs-lookup"><span data-stu-id="dbebc-147">However, for complex types, only the type of the parameter is listed.</span></span>
+
+ <span data-ttu-id="dbebc-148">SQL Server Analysis Services 还使用 XML for Analysis (XMLA) 协议处理客户端应用程序（包括 Excel 数据挖掘客户端和 [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)] 实例）之间的所有通信。</span><span class="sxs-lookup"><span data-stu-id="dbebc-148">SQL Server Analysis Services also uses the XML for Analysis (XMLA) protocol to handle all communications between client applications, including the Data Mining Client for Excel and an instance of [!INCLUDE[ssASnoversion](../includes/ssasnoversion-md.md)].</span></span>
+
+ <span data-ttu-id="dbebc-149">有关 DMX 语法以及 XMLA 中的命令和元素的详细信息，请参阅 [!INCLUDE[ssNoVersion](../includes/ssnoversion-md.md)] 联机丛书。</span><span class="sxs-lookup"><span data-stu-id="dbebc-149">For more information about DMX syntax, and about the commands and elements in XMLA, see [!INCLUDE[ssNoVersion](../includes/ssnoversion-md.md)] Books Online.</span></span>
+
+ <span data-ttu-id="dbebc-150">发送到服务器的某些语句可能包含调用 Analysis Services 系统存储过程的查询。</span><span class="sxs-lookup"><span data-stu-id="dbebc-150">Some of the statements sent to the server may include queries that call Analysis Services system stored procedures.</span></span> <span data-ttu-id="dbebc-151">有关详细信息，请参阅 SQL Server 联机丛书。</span><span class="sxs-lookup"><span data-stu-id="dbebc-151">For more information, see SQL Server Books Online.</span></span>
+
+

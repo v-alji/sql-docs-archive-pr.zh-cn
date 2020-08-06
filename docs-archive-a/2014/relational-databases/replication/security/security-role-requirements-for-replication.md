@@ -1,0 +1,55 @@
+---
+title: 复制的安全角色要求 | Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: replication
+ms.topic: conceptual
+helpviewer_keywords:
+- security [SQL Server replication], roles
+- roles [SQL Server], replication
+ms.assetid: b324a80f-4319-4cb2-847b-1910c49d90e0
+author: MashaMSFT
+ms.author: mathoma
+ms.openlocfilehash: 7eeea09a8dd580870b1d7d5514878172325fe9fe
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87691644"
+---
+# <a name="security-role-requirements-for-replication"></a><span data-ttu-id="2e857-102">Security Role Requirements for Replication</span><span class="sxs-lookup"><span data-stu-id="2e857-102">Security Role Requirements for Replication</span></span>
+  <span data-ttu-id="2e857-103">复制限制用户以用户登录名映射到的角色执行的特定操作。</span><span class="sxs-lookup"><span data-stu-id="2e857-103">Replication restricts the specific actions that a user can perform based on the roles to which the user's login is mapped.</span></span> <span data-ttu-id="2e857-104">复制向 **sysadmin** 固定服务器角色、 **db_owner** 固定数据库角色和发布访问列表 (PAL) 中的登录名授予了特定权限。</span><span class="sxs-lookup"><span data-stu-id="2e857-104">Replication has granted certain permissions to the **sysadmin** fixed server role, the **db_owner** fixed database role, and the logins in the publication access list (PAL).</span></span>  
+  
+## <a name="security-role-requirements-for-replication-setup"></a><span data-ttu-id="2e857-105">复制设置的安全角色要求</span><span class="sxs-lookup"><span data-stu-id="2e857-105">Security Role Requirements for Replication Setup</span></span>  
+ <span data-ttu-id="2e857-106">下表概述了常见复制设置任务所需的身份验证级别：</span><span class="sxs-lookup"><span data-stu-id="2e857-106">The following table summarizes the authentication level necessary for common replication setup tasks:</span></span>  
+  
+|<span data-ttu-id="2e857-107">设置任务</span><span class="sxs-lookup"><span data-stu-id="2e857-107">Setup task</span></span>|<span data-ttu-id="2e857-108">成员身份要求</span><span class="sxs-lookup"><span data-stu-id="2e857-108">Membership requirement</span></span>|  
+|----------------|----------------------------|  
+|<span data-ttu-id="2e857-109">启用分发服务器、发布服务器或订阅服务器。</span><span class="sxs-lookup"><span data-stu-id="2e857-109">Enable a Distributor, Publisher, or Subscriber.</span></span>|<span data-ttu-id="2e857-110">发布服务器上的**sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-110">**sysadmin** server role on the Publisher.</span></span>|  
+|<span data-ttu-id="2e857-111">启用数据库进行复制。</span><span class="sxs-lookup"><span data-stu-id="2e857-111">Enable a database for replication.</span></span>|<span data-ttu-id="2e857-112">发布服务器上的**sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-112">**sysadmin** server role on the Publisher.</span></span>|  
+|<span data-ttu-id="2e857-113">创建发布。</span><span class="sxs-lookup"><span data-stu-id="2e857-113">Create a publication.</span></span>|<span data-ttu-id="2e857-114">发布服务器的发布数据库上的**db_owner** 数据库角色或发布服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-114">**db_owner** database role on the publication database at the Publisher or **sysadmin** server role on the Publisher.</span></span>|  
+|<span data-ttu-id="2e857-115">查看发布属性。</span><span class="sxs-lookup"><span data-stu-id="2e857-115">View publication properties.</span></span>|<span data-ttu-id="2e857-116">发布服务器上的 PAL 成员、发布服务器的发布数据库上的 **db_owner** 数据库角色或发布服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-116">Member of the PAL at the Publisher, **db_owner** database role on the publication database at the Publisher, or **sysadmin** server role on the Publisher.</span></span>|  
+|<span data-ttu-id="2e857-117">创建订阅。</span><span class="sxs-lookup"><span data-stu-id="2e857-117">Create a subscription.</span></span>|<span data-ttu-id="2e857-118">发布服务器的发布数据库上的**db_owner** 数据库角色或发布服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-118">**db_owner** database role on the publication database at the Publisher or **sysadmin** server role on the Publisher.</span></span><br /><br /> <span data-ttu-id="2e857-119">订阅服务器的订阅数据库上的**db_owner** 数据库角色或订阅服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-119">**db_owner** database role on the subscription database at the Subscriber or **sysadmin** server role on the Subscriber.</span></span>|  
+|<span data-ttu-id="2e857-120">配置代理配置文件。</span><span class="sxs-lookup"><span data-stu-id="2e857-120">Configure agent profiles.</span></span>|<span data-ttu-id="2e857-121">分发服务器上的**sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-121">**sysadmin** server role on the Distributor.</span></span>|  
+  
+## <a name="security-role-requirements-for-replication-maintenance"></a><span data-ttu-id="2e857-122">复制维护的安全角色要求</span><span class="sxs-lookup"><span data-stu-id="2e857-122">Security Role Requirements for Replication Maintenance</span></span>  
+ <span data-ttu-id="2e857-123">下表概述了常见复制维护任务所需的身份验证级别：</span><span class="sxs-lookup"><span data-stu-id="2e857-123">The following table summarizes the authentication level necessary for common replication maintenance tasks:</span></span>  
+  
+|<span data-ttu-id="2e857-124">维护任务</span><span class="sxs-lookup"><span data-stu-id="2e857-124">Maintenance task</span></span>|<span data-ttu-id="2e857-125">成员身份要求</span><span class="sxs-lookup"><span data-stu-id="2e857-125">Membership requirement</span></span>|  
+|----------------------|----------------------------|  
+|<span data-ttu-id="2e857-126">修改或删除分发服务器、发布服务器或订阅服务器。</span><span class="sxs-lookup"><span data-stu-id="2e857-126">Modify or drop a Distributor, Publisher, or Subscriber.</span></span>|<span data-ttu-id="2e857-127">相应服务器上的**sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-127">**sysadmin** server role on the appropriate server.</span></span>|  
+|<span data-ttu-id="2e857-128">修改或删除发布。</span><span class="sxs-lookup"><span data-stu-id="2e857-128">Modify or drop a publication.</span></span>|<span data-ttu-id="2e857-129">发布服务器的发布数据库上的**db_owner** 数据库角色或发布服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-129">**db_owner** database role on the publication database at the Publisher or **sysadmin** server role on the Publisher.</span></span>|  
+|<span data-ttu-id="2e857-130">修改或删除发布服务器上的订阅。</span><span class="sxs-lookup"><span data-stu-id="2e857-130">Modify or drop a subscription at the Publisher.</span></span>|<span data-ttu-id="2e857-131">发布服务器的发布数据库上的**db_owner** 数据库角色或发布服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-131">**db_owner** database role on the publication database at the Publisher or **sysadmin** server role on the Publisher.</span></span>|  
+|<span data-ttu-id="2e857-132">修改或删除订阅服务器上的订阅。</span><span class="sxs-lookup"><span data-stu-id="2e857-132">Modify or drop a subscription at the Subscriber.</span></span>|<span data-ttu-id="2e857-133">订阅服务器的订阅数据库上的**db_owner** 数据库角色或订阅服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-133">**db_owner** database role on the subscription database at the Subscriber or **sysadmin** server role on the Subscriber.</span></span>|  
+|<span data-ttu-id="2e857-134">将订阅标记为要重新初始化。</span><span class="sxs-lookup"><span data-stu-id="2e857-134">Mark a subscription for reinitialization.</span></span>|<span data-ttu-id="2e857-135">推送订阅：订阅服务器上的发布数据库中的 **db_owner** 数据库角色或发布服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-135">Push subscription: **db_owner** database role in the publication database at the Publisher or **sysadmin** server role on the Publisher.</span></span><br /><br /> <span data-ttu-id="2e857-136">请求订阅：订阅服务器上的订阅数据库中的 **db_owner** 数据库角色或订阅服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-136">Pull subscription: **db_owner** database role in the subscription database at the Subscriber or **sysadmin** server role on the Subscriber.</span></span>|  
+|<span data-ttu-id="2e857-137">使用复制监视器查看复制活动、错误和历史记录。</span><span class="sxs-lookup"><span data-stu-id="2e857-137">View replication activity, errors, and history using Replication Monitor.</span></span> <span data-ttu-id="2e857-138">用户不能修改代理配置文件、计划等，除非用户是 **sysadmin** 服务器角色成员。</span><span class="sxs-lookup"><span data-stu-id="2e857-138">A user cannot modify agent profiles, schedules, and so on, unless the user is a member of the **sysadmin** server role.</span></span>|<span data-ttu-id="2e857-139">分发服务器的分发数据库上的**replmonitor** 数据库角色或分发服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-139">**replmonitor** database role on the distribution database at the Distributor or **sysadmin** server role on the Distributor.</span></span>|  
+|<span data-ttu-id="2e857-140">维护复制代理。</span><span class="sxs-lookup"><span data-stu-id="2e857-140">Maintain replication agents.</span></span>|<span data-ttu-id="2e857-141">相应数据库上的**db_owner** 数据库角色或相应服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-141">**db_owner** database role in the appropriate database or **sysadmin** server role on the appropriate server.</span></span><br /><br /> <span data-ttu-id="2e857-142">如果代理是由 **sysadmin** 角色中的用户创建的，并且未给该代理指定代理帐户，则该代理将在 [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] 代理帐户上下文运行。</span><span class="sxs-lookup"><span data-stu-id="2e857-142">If the agent was created by a user in the **sysadmin** role, and a proxy account was not specified for the agent, the agent runs under the context of the [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] Agent account.</span></span> <span data-ttu-id="2e857-143">在这种情况下， **db_owner** 角色中的用户不能修改与该代理关联的作业。</span><span class="sxs-lookup"><span data-stu-id="2e857-143">In this case, a user in the **db_owner** role cannot modify the job associated with the agent.</span></span>|  
+|<span data-ttu-id="2e857-144">启动或停止复制代理。</span><span class="sxs-lookup"><span data-stu-id="2e857-144">Start or stop a replication agent.</span></span>|<span data-ttu-id="2e857-145">代理作业的所有者或相应服务器上的 **sysadmin** 服务器角色。</span><span class="sxs-lookup"><span data-stu-id="2e857-145">Owner of the agent job or **sysadmin** server role on the appropriate server.</span></span>|  
+  
+## <a name="see-also"></a><span data-ttu-id="2e857-146">另请参阅</span><span class="sxs-lookup"><span data-stu-id="2e857-146">See Also</span></span>  
+ <span data-ttu-id="2e857-147">[Replication Security Best Practices](replication-security-best-practices.md) </span><span class="sxs-lookup"><span data-stu-id="2e857-147">[Replication Security Best Practices](replication-security-best-practices.md) </span></span>  
+ [<span data-ttu-id="2e857-148">SQL Server 复制安全性</span><span class="sxs-lookup"><span data-stu-id="2e857-148">SQL Server Replication Security</span></span>](view-and-modify-replication-security-settings.md)  
+  
+  

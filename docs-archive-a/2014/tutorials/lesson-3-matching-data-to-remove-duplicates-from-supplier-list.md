@@ -1,0 +1,29 @@
+---
+title: 第3课：匹配用于从供应商列表中删除重复项的数据 |Microsoft Docs
+ms.custom: ''
+ms.date: 03/06/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: data-quality-services
+ms.topic: conceptual
+ms.assetid: 059170b6-d62e-4b28-9451-99a0cc7e1f5f
+author: lrtoyou1223
+ms.author: lle
+ms.openlocfilehash: bdf3b71d985a60fed5080ec97462a43e79c4ca22
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87682471"
+---
+# <a name="lesson-3-matching-data-to-remove-duplicates-from-supplier-list"></a><span data-ttu-id="11957-102">第 3 课：匹配数据以便从供应商列表中删除重复项</span><span class="sxs-lookup"><span data-stu-id="11957-102">Lesson 3: Matching Data to Remove Duplicates from Supplier List</span></span>
+  <span data-ttu-id="11957-103">您可以通过在知识库中创建匹配策略，为执行匹配活动准备知识库。</span><span class="sxs-lookup"><span data-stu-id="11957-103">You prepare the knowledge base for performing matching activity by creating a matching policy in the knowledge base.</span></span> <span data-ttu-id="11957-104">一个知识库中只能有一个匹配策略。</span><span class="sxs-lookup"><span data-stu-id="11957-104">There can be only one matching policy in a knowledge base.</span></span> <span data-ttu-id="11957-105">一个匹配策略包含一个或多个匹配规则。</span><span class="sxs-lookup"><span data-stu-id="11957-105">A matching policy consists of one or more matching rules.</span></span> <span data-ttu-id="11957-106">规则识别匹配过程中涉及的域，并指定每个域值在匹配判断中的权重。</span><span class="sxs-lookup"><span data-stu-id="11957-106">A rule identifies the domains that are involved in the matching process, and specifies the weight that each domain value carries in the matching judgment.</span></span> <span data-ttu-id="11957-107">您可以在规则中指定域值必须是精确匹配还是相似匹配以及相似度。</span><span class="sxs-lookup"><span data-stu-id="11957-107">You specify in the rule whether domain values have to be an exact match or can be similar, and to what degree of similarity.</span></span> <span data-ttu-id="11957-108">还指定域匹配是否为匹配过程的先决条件。</span><span class="sxs-lookup"><span data-stu-id="11957-108">You also specify whether a domain match is a prerequisite for the matching process.</span></span> <span data-ttu-id="11957-109">您可以针对示例数据单独测试每个规则以及测试整个策略。</span><span class="sxs-lookup"><span data-stu-id="11957-109">You can test each rule separately and test the entire policy against sample data.</span></span> <span data-ttu-id="11957-110">测试过程显示匹配分数大于群集 (组) 中 DQS 配置中指定的**最小记录分数**阈值的记录。</span><span class="sxs-lookup"><span data-stu-id="11957-110">The testing process displays records whose matching scores are greater than the **Min record score** threshold specified in the DQS configuration in a cluster (group).</span></span> <span data-ttu-id="11957-111">您可以继续更改策略中的规则，直到满意为止。</span><span class="sxs-lookup"><span data-stu-id="11957-111">You can continue to tweak the rules in the policy until you are satisfied.</span></span>  
+  
+ <span data-ttu-id="11957-112">定义策略后，您创建一个数据质量项目来运行匹配活动。</span><span class="sxs-lookup"><span data-stu-id="11957-112">After defining the policy, you create a Data Quality Project to run the matching activity.</span></span> <span data-ttu-id="11957-113">匹配项目将匹配策略中的匹配规则应用到要进行评估的数据源。</span><span class="sxs-lookup"><span data-stu-id="11957-113">The matching project applies the matching rules in the matching policy to the data source to be assessed.</span></span> <span data-ttu-id="11957-114">这一过程评估任何两行是匹配项的可能性。</span><span class="sxs-lookup"><span data-stu-id="11957-114">This process assesses the likelihood that any two rows are matches.</span></span> <span data-ttu-id="11957-115">当 DQS 执行匹配分析时，它会创建 DQS 认为是匹配的分类。</span><span class="sxs-lookup"><span data-stu-id="11957-115">When DQS performs the matching analysis, it creates clusters of records that DQS considers matches.</span></span> <span data-ttu-id="11957-116">DQS 随机将其中的一条记录确定为透视记录。</span><span class="sxs-lookup"><span data-stu-id="11957-116">DQS randomly identifies one of the records as a pivot record.</span></span> <span data-ttu-id="11957-117">您可以验证和拒绝任何对该分类而言不是适当匹配的记录。</span><span class="sxs-lookup"><span data-stu-id="11957-117">You can verify and reject any record that is not an appropriate match for the cluster.</span></span> <span data-ttu-id="11957-118">有关更多详细信息，请参阅[创建匹配策略](https://msdn.microsoft.com/library/hh270290.aspx)主题。</span><span class="sxs-lookup"><span data-stu-id="11957-118">See [Create a Matching Policy](https://msdn.microsoft.com/library/hh270290.aspx) topic for more details.</span></span>  
+  
+ <span data-ttu-id="11957-119">在本课中，您将执行一个匹配活动来删除供应商列表中的重复项。</span><span class="sxs-lookup"><span data-stu-id="11957-119">In this lesson, you perform a matching activity to remove duplicates from the supplier list.</span></span> <span data-ttu-id="11957-120">首先，您创建包含一个规则的匹配策略以识别供应商列表中的重复项并将该策略发布到知识库。</span><span class="sxs-lookup"><span data-stu-id="11957-120">First, you create a matching policy with one rule to identify duplicates in the supplier list and publish the policy to the knowledge base.</span></span> <span data-ttu-id="11957-121">接着，您创建并运行一个用于匹配的数据质量项目。</span><span class="sxs-lookup"><span data-stu-id="11957-121">Next, you create and run a data quality project for matching.</span></span> <span data-ttu-id="11957-122">最后，您将匹配活动的结果导出到 Excel 文件，您以后在将数据上载到 Master Data Services (MDS) 时将使用该文件。</span><span class="sxs-lookup"><span data-stu-id="11957-122">Finally, you export the results from the matching activity to an Excel file that you use later in uploading data to Master Data Services (MDS).</span></span>  
+  
+## <a name="next-step"></a><span data-ttu-id="11957-123">下一步</span><span class="sxs-lookup"><span data-stu-id="11957-123">Next Step</span></span>  
+ [<span data-ttu-id="11957-124">任务 1：定义匹配策略</span><span class="sxs-lookup"><span data-stu-id="11957-124">Task 1: Defining a Matching Policy</span></span>](../../2014/tutorials/task-1-defining-a-matching-policy.md)  
+  
+  

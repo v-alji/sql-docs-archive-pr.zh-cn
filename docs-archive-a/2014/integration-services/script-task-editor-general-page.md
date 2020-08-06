@@ -1,0 +1,44 @@
+---
+title: 脚本任务编辑器 ("常规" 页) |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: integration-services
+ms.topic: conceptual
+f1_keywords:
+- sql12.dts.designer.scripttask.general.f1
+helpviewer_keywords:
+- Script Task Editor
+ms.assetid: 0d153dce-6661-4c99-b1db-2bd3b5038b4f
+author: chugugrace
+ms.author: chugu
+ms.openlocfilehash: e416ba5191908f37191a2a697cedd9dc4c82e828
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87682951"
+---
+# <a name="script-task-editor-general-page"></a><span data-ttu-id="8fa3d-102">脚本任务编辑器（“常规”页）</span><span class="sxs-lookup"><span data-stu-id="8fa3d-102">Script Task Editor (General Page)</span></span>
+  <span data-ttu-id="8fa3d-103">可以使用 **“脚本任务编辑器”** 对话框的 **“常规”** 页命名和描述脚本任务。</span><span class="sxs-lookup"><span data-stu-id="8fa3d-103">Use the **General** page of the **Script Task Editor** dialog box to name and describe the Script task.</span></span>  
+  
+ <span data-ttu-id="8fa3d-104">若要了解有关脚本任务的详细信息，请参阅 [Script Task](control-flow/script-task.md) 和 [在脚本任务编辑器中配置脚本任务](extending-packages-scripting/task/configuring-the-script-task-in-the-script-task-editor.md)。</span><span class="sxs-lookup"><span data-stu-id="8fa3d-104">To learn more about the Script task, see [Script Task](control-flow/script-task.md) and [Configuring the Script Task in the Script Task Editor](extending-packages-scripting/task/configuring-the-script-task-in-the-script-task-editor.md).</span></span> <span data-ttu-id="8fa3d-105">若要了解如何对脚本任务进行编程，请参阅 [Extending the Package with the Script Task](extending-packages-scripting/task/extending-the-package-with-the-script-task.md)。</span><span class="sxs-lookup"><span data-stu-id="8fa3d-105">To learn about programming the Script task, see [Extending the Package with the Script Task](extending-packages-scripting/task/extending-the-package-with-the-script-task.md).</span></span>  
+  
+## <a name="options"></a><span data-ttu-id="8fa3d-106">选项</span><span class="sxs-lookup"><span data-stu-id="8fa3d-106">Options</span></span>  
+ <span data-ttu-id="8fa3d-107">**名称**</span><span class="sxs-lookup"><span data-stu-id="8fa3d-107">**Name**</span></span>  
+ <span data-ttu-id="8fa3d-108">为脚本任务提供唯一的名称。</span><span class="sxs-lookup"><span data-stu-id="8fa3d-108">Provide a unique name for the Script task.</span></span> <span data-ttu-id="8fa3d-109">此名称用作任务图标中的标签。</span><span class="sxs-lookup"><span data-stu-id="8fa3d-109">This name is used as the label in the task icon.</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="8fa3d-110">任务名称在一个包内必须是唯一的。</span><span class="sxs-lookup"><span data-stu-id="8fa3d-110">Task names must be unique within a package.</span></span>  
+  
+ <span data-ttu-id="8fa3d-111">**说明**</span><span class="sxs-lookup"><span data-stu-id="8fa3d-111">**Description**</span></span>  
+ <span data-ttu-id="8fa3d-112">键入脚本任务的说明。</span><span class="sxs-lookup"><span data-stu-id="8fa3d-112">Type a description of the Script task.</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="8fa3d-113">另请参阅</span><span class="sxs-lookup"><span data-stu-id="8fa3d-113">See Also</span></span>  
+ <span data-ttu-id="8fa3d-114">[Integration Services 错误和消息引用](../../2014/integration-services/integration-services-error-and-message-reference.md) </span><span class="sxs-lookup"><span data-stu-id="8fa3d-114">[Integration Services Error and Message Reference](../../2014/integration-services/integration-services-error-and-message-reference.md) </span></span>  
+ <span data-ttu-id="8fa3d-115">[脚本任务编辑器 &#40;脚本页&#41;](../../2014/integration-services/script-task-editor-script-page.md) </span><span class="sxs-lookup"><span data-stu-id="8fa3d-115">[Script Task Editor &#40;Script Page&#41;](../../2014/integration-services/script-task-editor-script-page.md) </span></span>  
+ <span data-ttu-id="8fa3d-116">[“表达式”页](expressions/expressions-page.md) </span><span class="sxs-lookup"><span data-stu-id="8fa3d-116">[Expressions Page](expressions/expressions-page.md) </span></span>  
+ [<span data-ttu-id="8fa3d-117">脚本任务示例</span><span class="sxs-lookup"><span data-stu-id="8fa3d-117">Script Task Examples</span></span>](extending-packages-scripting-task-examples/script-task-examples.md)  
+  
+  

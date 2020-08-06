@@ -1,0 +1,34 @@
+---
+title: SQL Server 管理对象 (SMO) 编程指南 |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: ''
+ms.topic: reference
+helpviewer_keywords:
+- SMO [SQL Server]
+- SQL Server Management Objects
+- programming [SMO]
+ms.assetid: 4cde2b85-2a31-4cac-8d16-7a4196066193
+author: stevestein
+ms.author: sstein
+ms.openlocfilehash: 863e3fc90f750f91611a6fa75655783c7802ec23
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87682792"
+---
+# <a name="sql-server-management-objects-smo-programming-guide"></a><span data-ttu-id="c904d-102">SQL Server 管理对象 (SMO) 编程指南</span><span class="sxs-lookup"><span data-stu-id="c904d-102">SQL Server Management Objects (SMO) Programming Guide</span></span>
+  [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]<span data-ttu-id="c904d-103">管理对象 (SMO) 是一个对象的集合，这些对象旨在对管理的所有方面进行编程 [!INCLUDE[msCoName](../../includes/msconame-md.md)] [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 。</span><span class="sxs-lookup"><span data-stu-id="c904d-103">Management Objects (SMO) is a collection of objects that are designed for programming all aspects of managing [!INCLUDE[msCoName](../../includes/msconame-md.md)] [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)].</span></span> [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] <span data-ttu-id="c904d-104">复制管理对象 (RMO) 是一个用于封装 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 的复制管理功能的对象集合。</span><span class="sxs-lookup"><span data-stu-id="c904d-104">Replication Management Objects (RMO) is a collection of objects that encapsulates [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] replication management.</span></span>  
+  
+|<span data-ttu-id="c904d-105">主题</span><span class="sxs-lookup"><span data-stu-id="c904d-105">Topic</span></span>|<span data-ttu-id="c904d-106">说明</span><span class="sxs-lookup"><span data-stu-id="c904d-106">Description</span></span>|  
+|-----------|-----------------|  
+|[<span data-ttu-id="c904d-107">创建 SMO 程序</span><span class="sxs-lookup"><span data-stu-id="c904d-107">Creating SMO Programs</span></span>](create-program/creating-smo-programs.md)<br /><br /> [<span data-ttu-id="c904d-108">编程特定的任务</span><span class="sxs-lookup"><span data-stu-id="c904d-108">Programming Specific Tasks</span></span>](tasks/programming-specific-tasks.md)|<span data-ttu-id="c904d-109">介绍以下命名空间中包含的 SMO 对象的编程相关信息：Microsoft.SqlServer.management、Microsoft.SqlServer.Management.NotificationServices、Microsoft.SqlServer.Management.Smo、Microsoft.SqlServer.Management.Smo.Agent、Microsoft.SqlServer.Management.Smo.Broker、Microsoft.SqlServer.Management.Smo.Mail、Microsoft.SqlServer.Management.Smo.RegisteredServers、Microsoft.SqlServer.Management.Smo.Wmi 和 Microsoft.SqlServer.Management.Trace。</span><span class="sxs-lookup"><span data-stu-id="c904d-109">Provides information about programming the SMO objects in the Microsoft.SqlServer.management, Microsoft.SqlServer.Management.NotificationServices, Microsoft.SqlServer.Management.Smo, Microsoft.SqlServer.Management.Smo.Agent, Microsoft.SqlServer.Management.Smo.Broker, Microsoft.SqlServer.Management.Smo.Mail, Microsoft.SqlServer.Management.Smo.RegisteredServers, Microsoft.SqlServer.Management.Smo.Wmi, and Microsoft.SqlServer.Management.Trace namespaces.</span></span><br /><br /> <span data-ttu-id="c904d-110">其中包括了介绍如何编写用于定义数据库和管理 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 的程序的说明。</span><span class="sxs-lookup"><span data-stu-id="c904d-110">This includes instructions to write programs that define databases and manage [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)].</span></span> <span data-ttu-id="c904d-111">可使用 SMO 创建数据库、执行备份、创建作业、配置 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]、分配权限和执行其他许多管理任务。</span><span class="sxs-lookup"><span data-stu-id="c904d-111">You can use SMO to create databases, perform backups, create jobs, configure [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)], assign permissions, and to perform many other administrative tasks.</span></span>|  
+|[<span data-ttu-id="c904d-112">开发人员指南 &#40;复制&#41;</span><span class="sxs-lookup"><span data-stu-id="c904d-112">Developer's Guide &#40;Replication&#41;</span></span>](../replication/concepts/replication-developer-documentation.md)|<span data-ttu-id="c904d-113">介绍 Microsoft.SqlServer.Replication 命名空间中的 RMO 对象的编程相关信息。</span><span class="sxs-lookup"><span data-stu-id="c904d-113">Provides information about programming the RMO objects in the Microsoft.SqlServer.Replication namespace.</span></span>|  
+  
+## <a name="see-also"></a><span data-ttu-id="c904d-114">另请参阅</span><span class="sxs-lookup"><span data-stu-id="c904d-114">See Also</span></span>  
+ [<span data-ttu-id="c904d-115">开发人员指南 &#40;复制&#41;</span><span class="sxs-lookup"><span data-stu-id="c904d-115">Developer's Guide &#40;Replication&#41;</span></span>](../replication/concepts/replication-developer-documentation.md)  
+  
+  

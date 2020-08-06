@@ -1,0 +1,52 @@
+---
+title: 数据库存储位置 |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: analysis-services
+ms.topic: conceptual
+helpviewer_keywords:
+- databases [Analysis Services], storage location
+ms.assetid: cf88c62e-581e-42f2-846f-a9bf1d7c3292
+author: minewiskan
+ms.author: owend
+ms.openlocfilehash: ab370889396f40f52a348523e7f268892f549192
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87689057"
+---
+# <a name="database-storage-location"></a><span data-ttu-id="01c8a-102">数据库存储位置</span><span class="sxs-lookup"><span data-stu-id="01c8a-102">Database Storage Location</span></span>
+  <span data-ttu-id="01c8a-103">通常会出现这样的情况， [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] 数据库管理员 (dba) 希望某个数据库驻留在服务器数据文件夹之外。</span><span class="sxs-lookup"><span data-stu-id="01c8a-103">There are often situations when an [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] database administrator (dba) wants a certain database to reside outside of the server data folder.</span></span> <span data-ttu-id="01c8a-104">这些情况通常是由于业务需要，如提高性能或扩展存储。</span><span class="sxs-lookup"><span data-stu-id="01c8a-104">These situations are often driven by business needs, such as improving performance or expanding storage.</span></span> <span data-ttu-id="01c8a-105">对于这些情况， `DbStorageLocation` 数据库属性使 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] dba 能够指定本地磁盘或网络设备中的数据库位置。</span><span class="sxs-lookup"><span data-stu-id="01c8a-105">For these situations, the `DbStorageLocation` database property enables the [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] dba to specify the database location in a local disk or network device.</span></span>  
+  
+## <a name="dbstoragelocation-database-property"></a><span data-ttu-id="01c8a-106">DbStorageLocation 数据库属性</span><span class="sxs-lookup"><span data-stu-id="01c8a-106">DbStorageLocation database property</span></span>  
+ <span data-ttu-id="01c8a-107">`DbStorageLocation` 数据库属性指定了 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] 创建和管理所有数据库数据和元数据文件的文件夹。</span><span class="sxs-lookup"><span data-stu-id="01c8a-107">The `DbStorageLocation` database property specifies the folder where [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] creates and manages all the database data and metadata files.</span></span> <span data-ttu-id="01c8a-108">除数据库元数据文件之外（它存储在服务器数据文件夹中），所有元数据文件都存储在 `DbStorageLocation` 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="01c8a-108">All metadata files are stored at the `DbStorageLocation` folder, with the exception of the database metadata file, which is stored in the server data folder.</span></span> <span data-ttu-id="01c8a-109">在设置 `DbStorageLocation` 数据库属性的值时，需考虑两个重要的注意事项：</span><span class="sxs-lookup"><span data-stu-id="01c8a-109">There are two important considerations when setting the value of `DbStorageLocation` database property:</span></span>  
+  
+-   <span data-ttu-id="01c8a-110">必须将 `DbStorageLocation` 数据库属性设置为现有 UNC 文件夹路径或空字符串。</span><span class="sxs-lookup"><span data-stu-id="01c8a-110">The `DbStorageLocation` database property must be set to an existing UNC folder path or an empty string.</span></span> <span data-ttu-id="01c8a-111">空字符串是服务器数据文件夹的默认值。</span><span class="sxs-lookup"><span data-stu-id="01c8a-111">An empty string is the default for the server data folder.</span></span> <span data-ttu-id="01c8a-112">如果该文件夹不存在，则在执行 `Create`、`Attach`、或 `Alter` 命令时会产生错误。</span><span class="sxs-lookup"><span data-stu-id="01c8a-112">If the folder does not exist, an error will be raised when you execute a `Create`, `Attach`, or `Alter` command.</span></span>  
+  
+-   <span data-ttu-id="01c8a-113">不能将 `DbStorageLocation` 数据库属性设置为指向服务器数据文件夹或它的任何一个子文件夹。</span><span class="sxs-lookup"><span data-stu-id="01c8a-113">The `DbStorageLocation` database property cannot be set to point to the server data folder or any one of its subfolders.</span></span> <span data-ttu-id="01c8a-114">如果该位置指向服务器数据文件夹或它的任何一个子文件夹，则在执行 `Create`、`Attach`、或 `Alter` 命令时会产生错误。</span><span class="sxs-lookup"><span data-stu-id="01c8a-114">If the location points to the server data folder or any one of its subfolders, an error will be raised when you execute a `Create`, `Attach`, or `Alter` command.</span></span>  
+  
+> [!IMPORTANT]  
+>  <span data-ttu-id="01c8a-115">建议您设置 UNC 路径以使用存储区域网络 (SAN)、基于 iSCSI 的网络或本地附加的磁盘。</span><span class="sxs-lookup"><span data-stu-id="01c8a-115">We recommend that set your UNC path to use a Storage Area Network (SAN), iSCSI-based network, or a locally attached disk.</span></span> <span data-ttu-id="01c8a-116">网络共享的任何 UNC 路径或任何长滞后时间远程存储解决方案导致不支持的安装.</span><span class="sxs-lookup"><span data-stu-id="01c8a-116">Any UNC path to a network share or any high latency remote storage solution leads to an unsupported installation.</span></span>  
+  
+### <a name="dbstoragelocation-compared-to-storagelocation"></a><span data-ttu-id="01c8a-117">相对于 StorageLocation 的 DbStorageLocation</span><span class="sxs-lookup"><span data-stu-id="01c8a-117">DbStorageLocation compared to StorageLocation</span></span>  
+ <span data-ttu-id="01c8a-118">`DbStorageLocation` 指定了所有数据库数据和元数据文件所在的文件夹，而 `StorageLocation` 指定了多维数据集的一个或多个分区所在的文件夹。</span><span class="sxs-lookup"><span data-stu-id="01c8a-118">`DbStorageLocation` specifies the folder where all the database data and metadata files reside, whereas `StorageLocation` specifies the folder where one or more partitions of a cube reside.</span></span> <span data-ttu-id="01c8a-119">`StorageLocation` 可以独立于 `DbStorageLocation` 进行设置。</span><span class="sxs-lookup"><span data-stu-id="01c8a-119">`StorageLocation` can be set independently of `DbStorageLocation`.</span></span> <span data-ttu-id="01c8a-120">这是 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] dba 根据预期的结果做出的决定，很多时候一个属性或另一个属性的使用会重叠。</span><span class="sxs-lookup"><span data-stu-id="01c8a-120">This is an [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] dba decision based on the expected results, and many times the usage of one property or the other will overlap.</span></span>  
+  
+## <a name="dbstoragelocation-usage"></a><span data-ttu-id="01c8a-121">DbStorageLocation 用法</span><span class="sxs-lookup"><span data-stu-id="01c8a-121">DbStorageLocation Usage</span></span>  
+ <span data-ttu-id="01c8a-122">在数据库命令 `DbStorageLocation` `Create` `Detach` / `Attach` 序列、 `Backup` / `Restore` 数据库命令序列或 `Synchronize` 数据库命令中，将数据库属性用作数据库命令的一部分。</span><span class="sxs-lookup"><span data-stu-id="01c8a-122">The `DbStorageLocation` database property is used as part of a `Create` database command in a `Detach`/`Attach` database commands sequence, in a `Backup`/`Restore` database commands sequence, or in a `Synchronize` database command.</span></span> <span data-ttu-id="01c8a-123">更改 `DbStorageLocation` 数据库属性被认为是数据库对象的结构更改。</span><span class="sxs-lookup"><span data-stu-id="01c8a-123">Changing the `DbStorageLocation` database property is considered a structural change in the database object.</span></span> <span data-ttu-id="01c8a-124">这意味着必须重新创建所有元数据并且重新处理数据。</span><span class="sxs-lookup"><span data-stu-id="01c8a-124">This means that all metadata must be recreated and the data reprocessed.</span></span>  
+  
+> [!IMPORTANT]  
+>  <span data-ttu-id="01c8a-125">不应使用 `Alter` 命令更改数据库存储位置。</span><span class="sxs-lookup"><span data-stu-id="01c8a-125">You should not change the database storage location by using an `Alter` command.</span></span> <span data-ttu-id="01c8a-126">相反，我们建议你使用一系列 `Detach` / `Attach` 数据库命令 (参阅[移动 Analysis Services 数据库](move-an-analysis-services-database.md)、[附加和分离 Analysis Services 数据库](attach-and-detach-analysis-services-databases.md)) 。</span><span class="sxs-lookup"><span data-stu-id="01c8a-126">Instead, we recommend that you use a sequence of `Detach`/`Attach` database commands (see [Move an Analysis Services Database](move-an-analysis-services-database.md), [Attach and Detach Analysis Services Databases](attach-and-detach-analysis-services-databases.md)).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="01c8a-127">另请参阅</span><span class="sxs-lookup"><span data-stu-id="01c8a-127">See Also</span></span>  
+ <span data-ttu-id="01c8a-128">[Microsoft.analysisservices.sharepoint.integration.dll. DbStorageLocation \*](/dotnet/api/microsoft.analysisservices.core.database.dbstoragelocation) </span><span class="sxs-lookup"><span data-stu-id="01c8a-128">[Microsoft.AnalysisServices.Database.DbStorageLocation\*](/dotnet/api/microsoft.analysisservices.core.database.dbstoragelocation) </span></span>  
+ <span data-ttu-id="01c8a-129">[附加和分离 Analysis Services 数据库](attach-and-detach-analysis-services-databases.md) </span><span class="sxs-lookup"><span data-stu-id="01c8a-129">[Attach and Detach Analysis Services Databases](attach-and-detach-analysis-services-databases.md) </span></span>  
+ <span data-ttu-id="01c8a-130">[移动 Analysis Services 数据库](move-an-analysis-services-database.md) </span><span class="sxs-lookup"><span data-stu-id="01c8a-130">[Move an Analysis Services Database](move-an-analysis-services-database.md) </span></span>  
+ <span data-ttu-id="01c8a-131">[DbStorageLocation 元素](https://docs.microsoft.com/bi-reference/xmla/xml-elements-properties/dbstoragelocation-element) </span><span class="sxs-lookup"><span data-stu-id="01c8a-131">[DbStorageLocation Element](https://docs.microsoft.com/bi-reference/xmla/xml-elements-properties/dbstoragelocation-element) </span></span>  
+ <span data-ttu-id="01c8a-132">[&#40;XMLA&#41;创建元素](https://docs.microsoft.com/bi-reference/xmla/xml-elements-commands/create-element-xmla) </span><span class="sxs-lookup"><span data-stu-id="01c8a-132">[Create Element &#40;XMLA&#41;](https://docs.microsoft.com/bi-reference/xmla/xml-elements-commands/create-element-xmla) </span></span>  
+ <span data-ttu-id="01c8a-133">[附加元素](https://docs.microsoft.com/bi-reference/xmla/xml-elements-commands/attach-element) </span><span class="sxs-lookup"><span data-stu-id="01c8a-133">[Attach Element](https://docs.microsoft.com/bi-reference/xmla/xml-elements-commands/attach-element) </span></span>  
+ [<span data-ttu-id="01c8a-134">Synchronize 元素 (XMLA)</span><span class="sxs-lookup"><span data-stu-id="01c8a-134">Synchronize Element &#40;XMLA&#41;</span></span>](https://docs.microsoft.com/bi-reference/xmla/xml-elements-commands/synchronize-element-xmla)  
+  
+  

@@ -1,0 +1,42 @@
+---
+title: 为传递扩展插件实现 ISubscriptionBaseUIUserControl 接口 |Microsoft Docs
+ms.custom: ''
+ms.date: 03/06/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: reporting-services
+ms.topic: reference
+helpviewer_keywords:
+- user controls [Reporting Services]
+- ISubscriptionBaseUIUserControl interface
+- delivery extensions [Reporting Services], user controls
+ms.assetid: a1e9122c-aa0b-45de-b536-4f1202875ab1
+author: maggiesMSFT
+ms.author: maggies
+manager: kfile
+ms.openlocfilehash: 2664d71243d98e9b8152c5c5c7ce241a4f3669f8
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87591783"
+---
+# <a name="implementing-the-isubscriptionbaseuiusercontrol-interface-for-a-delivery-extension"></a><span data-ttu-id="5bbdf-102">为传递扩展插件实现 ISubscriptionBaseUIUserControl 接口</span><span class="sxs-lookup"><span data-stu-id="5bbdf-102">Implementing the ISubscriptionBaseUIUserControl Interface for a Delivery Extension</span></span>
+  [!INCLUDE[ssRSnoversion](../../../includes/ssrsnoversion-md.md)] <span data-ttu-id="5bbdf-103">传递扩展插件可以包含订阅用户界面 (UI) 的实现，以便在报表管理器中收集扩展插件特定的信息。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-103">delivery extensions can contain an implementation of a subscription user interface (UI) for gathering extension-specific information in Report Manager.</span></span> <span data-ttu-id="5bbdf-104">当用户创建新的订阅或修改现有订阅时，将调用此 UI。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-104">The UI is invoked when a user creates a new subscription or modifies an existing one.</span></span> <span data-ttu-id="5bbdf-105">当创建新订阅时，此 UI 显示适当的默认值并使得用户能够与传递提供程序交互。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-105">When a new subscription is being created, the UI displays suitable default values and enables users to interact with the delivery provider.</span></span> <span data-ttu-id="5bbdf-106">当修改订阅时，将使用当前订阅中的信息预填充此 UI。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-106">When a subscription is being modified, the UI is pre-populated with the information in the current subscription.</span></span>  
+  
+ <span data-ttu-id="5bbdf-107">传递扩展插件将订阅 UI 作为 ASP.NET 用户控件提供。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-107">Delivery extensions provide subscription UI as an ASP.NET user control.</span></span> <span data-ttu-id="5bbdf-108">在显示订阅 UI 时，报表服务器将合并由传递扩展插件定义的用户控件。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-108">The report server incorporates the user control defined by the delivery extension when displaying the subscriptions UI.</span></span> <span data-ttu-id="5bbdf-109">提供实现此功能的抽象方法的基接口是 <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> 接口。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-109">The base interface that provides abstract methods enabling this functionality is the <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> interface.</span></span> <span data-ttu-id="5bbdf-110">此接口可确保正确地执行常见操作，如验证输入值。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-110">This interface ensures that common operations, such as validation of input values, are correctly performed.</span></span> <span data-ttu-id="5bbdf-111">此外，基本用户控件提供一组默认属性，报表服务器使用这些属性来实现订阅间的一致性。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-111">Additionally, the base user control supplies a set of default properties that are used by the report server for consistency across subscriptions.</span></span> <span data-ttu-id="5bbdf-112">与报表管理器集成的传递扩展插件需要这些属性。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-112">These properties are required by delivery extensions that are integrated with Report Manager.</span></span>  
+  
+ <span data-ttu-id="5bbdf-113">您可以在传递提供程序中实现 <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> 接口，以便为报表管理器生成订阅 UI。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-113">You can implement the <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> interface in a delivery provider in order to build a subscription UI for Report Manager.</span></span> <span data-ttu-id="5bbdf-114"><xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> 接口提供了基础结构，以供用户为订阅设置输入值，处理传递扩展插件所需的设置以及验证这些设置。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-114">The <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> interface provides infrastructure for enabling users to enter values for subscription settings, for processing the settings needed for the delivery extension, and for validating the settings.</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="5bbdf-115">不要求您将 <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> 接口作为传递扩展插件的一部分实现。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-115">You are not required to implement the <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> interface as part of your delivery extension.</span></span> <span data-ttu-id="5bbdf-116">而是始终可以通过 SOAP API 方法 <xref:ReportService2010.ReportingService2010.CreateSubscription%2A> 和 <xref:ReportService2010.ReportingService2010.CreateDataDrivenSubscription%2A> 创建使用传递扩展插件的订阅。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-116">Subscriptions that use your delivery extension can always be created through the SOAP API methods <xref:ReportService2010.ReportingService2010.CreateSubscription%2A> and <xref:ReportService2010.ReportingService2010.CreateDataDrivenSubscription%2A> instead.</span></span> <span data-ttu-id="5bbdf-117">有关用于管理订阅和传递的 SOAP API 功能的详细信息，请参阅[订阅和传递方法](../../report-server-web-service/methods/subscription-and-delivery-methods.md)。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-117">For more information about the SOAP API features for managing subscription and delivery, see [Subscription and Delivery Methods](../../report-server-web-service/methods/subscription-and-delivery-methods.md).</span></span>  
+  
+ <span data-ttu-id="5bbdf-118"><xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> 接口扩展 <xref:Microsoft.ReportingServices.Interfaces.IExtension>。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-118">The <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> interface extends <xref:Microsoft.ReportingServices.Interfaces.IExtension>.</span></span> <span data-ttu-id="5bbdf-119">实现 <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> 的用户控件也必须从 System.Web.UI.WebControls.WebControl 继承\*\*\*\*。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-119">Your user control that implements <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> must also inherit from **System.Web.UI.WebControls.WebControl**.</span></span> <span data-ttu-id="5bbdf-120">有关 WebControl 类的详细信息，请参阅 [!INCLUDE[msCoName](../../../includes/msconame-md.md)] [!INCLUDE[dnprdnshort](../../../includes/dnprdnshort-md.md)] 开发人员指南\*\*\*\*。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-120">For more information about the **WebControl** class, see your [!INCLUDE[msCoName](../../../includes/msconame-md.md)] [!INCLUDE[dnprdnshort](../../../includes/dnprdnshort-md.md)] Developer's Guide.</span></span>  
+  
+ <span data-ttu-id="5bbdf-121">有关如何使用 <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> 接口的示例，请参阅 [SQL Server Reporting Services Product Samples](https://go.microsoft.com/fwlink/?LinkId=177889)（SQL Server Reporting Services 产品示例）。</span><span class="sxs-lookup"><span data-stu-id="5bbdf-121">For an example of how to use the <xref:Microsoft.ReportingServices.Interfaces.ISubscriptionBaseUIUserControl> interface, see [SQL Server Reporting Services Product Samples](https://go.microsoft.com/fwlink/?LinkId=177889).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="5bbdf-122">另请参阅</span><span class="sxs-lookup"><span data-stu-id="5bbdf-122">See Also</span></span>  
+ <span data-ttu-id="5bbdf-123">[实现传递扩展插件](implementing-a-delivery-extension.md) </span><span class="sxs-lookup"><span data-stu-id="5bbdf-123">[Implementing a Delivery Extension](implementing-a-delivery-extension.md) </span></span>  
+ [<span data-ttu-id="5bbdf-124">Reporting Services 扩展插件库</span><span class="sxs-lookup"><span data-stu-id="5bbdf-124">Reporting Services Extension Library</span></span>](../reporting-services-extension-library.md)  
+  
+  

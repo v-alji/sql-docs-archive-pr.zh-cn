@@ -55,7 +55,7 @@ ms.locfileid: "87589321"
 ## <a name="analysis-services-data-types"></a>Analysis Services 数据类型  
  在绑定中使用的数据类型必须与 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)]所支持的数据类型匹配。 在 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)]中定义了下列数据类型：  
   
-|Analysis Services 数据类型|说明|  
+|Analysis Services 数据类型|描述|  
 |---------------------------------|-----------------|  
 |BigInt|64 位带符号整数。 此数据类型映射到 Microsoft [!INCLUDE[dnprdnshort](../../includes/dnprdnshort-md.md)] 中的 Int64 数据类型和 OLE DB 中的 DBTYPE_I8 数据类型。|  
 |Bool|一个布尔值。 此数据类型映射到 [!INCLUDE[dnprdnshort](../../includes/dnprdnshort-md.md)] 中的 Boolean 数据类型和 OLE DB 中的 DBTYPE_BOOL 数据类型。|  
@@ -167,7 +167,7 @@ ms.locfileid: "87589321"
   
  外部绑定是通过将可选 `Bindings` 集合对象与处理命令包含在一起而指定的。 可选的 `Bindings` 集合包含以下元素。  
   
-|Property|基数|类型|说明|  
+|Property|基数|类型|描述|  
 |--------------|-----------------|----------|-----------------|  
 |`Binding`|0-n|`Binding`|提供新绑定的集合。|  
 |`DataSource`|0-1|`DataSource`|替换服务器中本应使用的 `DataSource`。|  

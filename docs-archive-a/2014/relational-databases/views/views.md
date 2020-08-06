@@ -1,0 +1,57 @@
+---
+title: 视图 | Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: table-view-index
+ms.topic: conceptual
+helpviewer_keywords:
+- views [SQL Server], about views
+ms.assetid: ada83c28-e8b7-45d9-b53c-b3d67c8820c8
+author: stevestein
+ms.author: sstein
+ms.openlocfilehash: c7332506666b11e96255c2b903d70b232ae4efa6
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87576585"
+---
+# <a name="views"></a><span data-ttu-id="ec873-102">视图</span><span class="sxs-lookup"><span data-stu-id="ec873-102">Views</span></span>
+  <span data-ttu-id="ec873-103">视图是一个虚拟表，其内容由查询定义。</span><span class="sxs-lookup"><span data-stu-id="ec873-103">A view is a virtual table whose contents are defined by a query.</span></span> <span data-ttu-id="ec873-104">同表一样，视图包含一系列带有名称的列和行数据。</span><span class="sxs-lookup"><span data-stu-id="ec873-104">Like a table, a view consists of a set of named columns and rows of data.</span></span> <span data-ttu-id="ec873-105">视图在数据库中并不是以数据值存储集形式存在，除非是索引视图。</span><span class="sxs-lookup"><span data-stu-id="ec873-105">Unless indexed, a view does not exist as a stored set of data values in a database.</span></span> <span data-ttu-id="ec873-106">行和列数据来自由定义视图的查询所引用的表，并且在引用视图时动态生成。</span><span class="sxs-lookup"><span data-stu-id="ec873-106">The rows and columns of data come from tables referenced in the query defining the view and are produced dynamically when the view is referenced.</span></span>  
+  
+ <span data-ttu-id="ec873-107">对其中所引用的基础表来说，视图的作用类似于筛选。</span><span class="sxs-lookup"><span data-stu-id="ec873-107">A view acts as a filter on the underlying tables referenced in the view.</span></span> <span data-ttu-id="ec873-108">定义视图的筛选可以来自当前或其他数据库的一个或多个表，或者其他视图。</span><span class="sxs-lookup"><span data-stu-id="ec873-108">The query that defines the view can be from one or more tables or from other views in the current or other databases.</span></span> <span data-ttu-id="ec873-109">分布式查询也可用于定义使用多个异类源数据的视图。</span><span class="sxs-lookup"><span data-stu-id="ec873-109">Distributed queries can also be used to define views that use data from multiple heterogeneous sources.</span></span> <span data-ttu-id="ec873-110">例如，如果有多台不同的服务器分别存储您的单位在不同地区的数据，而您需要将这些服务器上结构相似的数据组合起来，这种方式就很有用。</span><span class="sxs-lookup"><span data-stu-id="ec873-110">This is useful, for example, if you want to combine similarly structured data from different servers, each of which stores data for a different region of your organization.</span></span>  
+  
+ <span data-ttu-id="ec873-111">视图通常用来集中、简化和自定义每个用户对数据库的不同认识。</span><span class="sxs-lookup"><span data-stu-id="ec873-111">Views are generally used to focus, simplify, and customize the perception each user has of the database.</span></span> <span data-ttu-id="ec873-112">视图可用作安全机制，方法是允许用户通过视图访问数据，而不授予用户直接访问视图基础表的权限。</span><span class="sxs-lookup"><span data-stu-id="ec873-112">Views can be used as security mechanisms by letting users access data through the view, without granting the users permissions to directly access the underlying base tables of the view.</span></span> <span data-ttu-id="ec873-113">视图可用于提供向后兼容接口来模拟曾经存在但其架构已更改的表。</span><span class="sxs-lookup"><span data-stu-id="ec873-113">Views can be used to provide a backward compatible interface to emulate a table that used to exist but whose schema has changed.</span></span> <span data-ttu-id="ec873-114">还可以在向 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 复制数据和从其中复制数据时使用视图，以便提高性能并对数据进行分区。</span><span class="sxs-lookup"><span data-stu-id="ec873-114">Views can also be used when you copy data to and from [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] to improve performance and to partition data.</span></span>  
+  
+## <a name="types-of-views"></a><span data-ttu-id="ec873-115">视图类型</span><span class="sxs-lookup"><span data-stu-id="ec873-115">Types of Views</span></span>  
+ <span data-ttu-id="ec873-116">除了基本用户定义视图的标准角色以外， [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 还提供了下列类型的视图，这些视图在数据库中起着特殊的作用：</span><span class="sxs-lookup"><span data-stu-id="ec873-116">Besides the standard role of basic user-defined views, [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] provides the following types of views that serve special purposes in a database.</span></span>  
+  
+ <span data-ttu-id="ec873-117">索引视图</span><span class="sxs-lookup"><span data-stu-id="ec873-117">Indexed Views</span></span>  
+ <span data-ttu-id="ec873-118">索引视图是被具体化了的视图。</span><span class="sxs-lookup"><span data-stu-id="ec873-118">An indexed view is a view that has been materialized.</span></span> <span data-ttu-id="ec873-119">这意味着已经对视图定义进行了计算并且生成的数据像表一样存储。</span><span class="sxs-lookup"><span data-stu-id="ec873-119">This means the view definition has been computed and the resulting data stored just like a table.</span></span> <span data-ttu-id="ec873-120">可以为视图创建索引，即对视图创建一个唯一的聚集索引。</span><span class="sxs-lookup"><span data-stu-id="ec873-120">You index a view by creating a unique clustered index on it.</span></span> <span data-ttu-id="ec873-121">索引视图可以显著提高某些类型查询的性能。</span><span class="sxs-lookup"><span data-stu-id="ec873-121">Indexed views can dramatically improve the performance of some types of queries.</span></span> <span data-ttu-id="ec873-122">索引视图尤其适于聚合许多行的查询。</span><span class="sxs-lookup"><span data-stu-id="ec873-122">Indexed views work best for queries that aggregate many rows.</span></span> <span data-ttu-id="ec873-123">但它们不太适于经常更新的基本数据集。</span><span class="sxs-lookup"><span data-stu-id="ec873-123">They are not well-suited for underlying data sets that are frequently updated.</span></span>  
+  
+ <span data-ttu-id="ec873-124">分区视图</span><span class="sxs-lookup"><span data-stu-id="ec873-124">Partitioned Views</span></span>  
+ <span data-ttu-id="ec873-125">分区视图在一台或多台服务器间水平连接一组成员表中的分区数据。</span><span class="sxs-lookup"><span data-stu-id="ec873-125">A partitioned view joins horizontally partitioned data from a set of member tables across one or more servers.</span></span> <span data-ttu-id="ec873-126">这样，数据看上去如同来自于一个表。</span><span class="sxs-lookup"><span data-stu-id="ec873-126">This makes the data appear as if from one table.</span></span> <span data-ttu-id="ec873-127">联接同一个 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 实例中的成员表的视图是一个本地分区视图。</span><span class="sxs-lookup"><span data-stu-id="ec873-127">A view that joins member tables on the same instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] is a local partitioned view.</span></span>  
+  
+ <span data-ttu-id="ec873-128">系统视图</span><span class="sxs-lookup"><span data-stu-id="ec873-128">System Views</span></span>  
+ <span data-ttu-id="ec873-129">系统视图公开目录元数据。</span><span class="sxs-lookup"><span data-stu-id="ec873-129">System views expose catalog metadata.</span></span> <span data-ttu-id="ec873-130">您可以使用系统视图返回与 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 实例或在该实例中定义的对象有关的信息。</span><span class="sxs-lookup"><span data-stu-id="ec873-130">You can use system views to return information about the instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] or the objects defined in the instance.</span></span> <span data-ttu-id="ec873-131">例如，你可以查询 sys.databases 目录视图以便返回与实例中提供的用户定义数据库有关的信息。</span><span class="sxs-lookup"><span data-stu-id="ec873-131">For example, you can query the sys.databases catalog view to return information about the user-defined databases available in the instance.</span></span> <span data-ttu-id="ec873-132">有关详细信息，请参阅[系统视图 (Transact-SQL)](/sql/t-sql/language-reference)。</span><span class="sxs-lookup"><span data-stu-id="ec873-132">For more information, see [System Views &#40;Transact-SQL&#41;](/sql/t-sql/language-reference)</span></span>  
+  
+## <a name="common-view-tasks"></a><span data-ttu-id="ec873-133">常见视图任务</span><span class="sxs-lookup"><span data-stu-id="ec873-133">Common View Tasks</span></span>  
+ <span data-ttu-id="ec873-134">下表提供指向与创建或修改视图相关联的常见任务的链接。</span><span class="sxs-lookup"><span data-stu-id="ec873-134">The following table provides links to common tasks associated with creating or modifying a view.</span></span>  
+  
+|<span data-ttu-id="ec873-135">视图任务</span><span class="sxs-lookup"><span data-stu-id="ec873-135">View Tasks</span></span>|<span data-ttu-id="ec873-136">主题</span><span class="sxs-lookup"><span data-stu-id="ec873-136">Topic</span></span>|  
+|----------------|-----------|  
+|<span data-ttu-id="ec873-137">介绍如何创建视图。</span><span class="sxs-lookup"><span data-stu-id="ec873-137">Describes how to create a view.</span></span>|[<span data-ttu-id="ec873-138">创建视图</span><span class="sxs-lookup"><span data-stu-id="ec873-138">Create Views</span></span>](../views/views.md)|  
+|<span data-ttu-id="ec873-139">介绍如何创建索引视图。</span><span class="sxs-lookup"><span data-stu-id="ec873-139">Describes how to create an indexed view.</span></span>|[<span data-ttu-id="ec873-140">创建索引视图</span><span class="sxs-lookup"><span data-stu-id="ec873-140">Create Indexed Views</span></span>](../views/create-indexed-views.md)|  
+|<span data-ttu-id="ec873-141">介绍如何修改视图定义。</span><span class="sxs-lookup"><span data-stu-id="ec873-141">Describes how to modify the view definition.</span></span>|[<span data-ttu-id="ec873-142">修改视图</span><span class="sxs-lookup"><span data-stu-id="ec873-142">Modify Views</span></span>](../views/modify-views.md)|  
+|<span data-ttu-id="ec873-143">介绍如何通过视图修改数据。</span><span class="sxs-lookup"><span data-stu-id="ec873-143">Describes how to modify data through a view.</span></span>|[<span data-ttu-id="ec873-144">通过视图修改数据</span><span class="sxs-lookup"><span data-stu-id="ec873-144">Modify Data Through a View</span></span>](../views/modify-data-through-a-view.md)|  
+|<span data-ttu-id="ec873-145">介绍如何删除视图。</span><span class="sxs-lookup"><span data-stu-id="ec873-145">Describes how to delete a view.</span></span>|[<span data-ttu-id="ec873-146">删除视图</span><span class="sxs-lookup"><span data-stu-id="ec873-146">Delete Views</span></span>](../views/delete-views.md)|  
+|<span data-ttu-id="ec873-147">介绍如何返回与视图有关的信息，例如视图定义。</span><span class="sxs-lookup"><span data-stu-id="ec873-147">Describes how to return information about a view such as the view definition.</span></span>|[<span data-ttu-id="ec873-148">获取有关视图的信息</span><span class="sxs-lookup"><span data-stu-id="ec873-148">Get Information About a View</span></span>](../views/get-information-about-a-view.md)|  
+|<span data-ttu-id="ec873-149">介绍如何重命名视图。</span><span class="sxs-lookup"><span data-stu-id="ec873-149">Describes how to rename a view.</span></span>|[<span data-ttu-id="ec873-150">重命名视图</span><span class="sxs-lookup"><span data-stu-id="ec873-150">Rename Views</span></span>](../views/rename-views.md)|  
+  
+## <a name="see-also"></a><span data-ttu-id="ec873-151">另请参阅</span><span class="sxs-lookup"><span data-stu-id="ec873-151">See Also</span></span>  
+ <span data-ttu-id="ec873-152">[基于 XML 列创建视图](../xml/create-views-over-xml-columns.md) </span><span class="sxs-lookup"><span data-stu-id="ec873-152">[Create Views over XML Columns](../xml/create-views-over-xml-columns.md) </span></span>  
+ [<span data-ttu-id="ec873-153">CREATE VIEW (Transact-SQL)</span><span class="sxs-lookup"><span data-stu-id="ec873-153">CREATE VIEW &#40;Transact-SQL&#41;</span></span>](/sql/t-sql/statements/create-view-transact-sql)  
+  
+  

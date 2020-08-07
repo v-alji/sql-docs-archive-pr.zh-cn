@@ -1,0 +1,51 @@
+---
+title: 通过 MDX 查询多维数据 |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: analysis-services
+ms.topic: conceptual
+helpviewer_keywords:
+- multidimensional data [Analysis Services], querying
+ms.assetid: e0a5dd60-35a3-4a4f-b36f-52ecea814886
+author: minewiskan
+ms.author: owend
+ms.openlocfilehash: 7b7589a98636e56e8c592cef213785544e18f4ea
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87589307"
+---
+# <a name="querying-multidimensional-data-with-mdx"></a><span data-ttu-id="8f8ca-102">使用 MDX 查询多维数据</span><span class="sxs-lookup"><span data-stu-id="8f8ca-102">Querying Multidimensional Data with MDX</span></span>
+  <span data-ttu-id="8f8ca-103">多维表达式 (MDX) 是用于在中处理和检索多维数据的查询语言 [!INCLUDE[msCoName](../../../includes/msconame-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] 。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-103">Multidimensional Expressions (MDX) is the query language that you use to work with and retrieve multidimensional data in [!INCLUDE[msCoName](../../../includes/msconame-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)].</span></span> <span data-ttu-id="8f8ca-104">MDX 基于 XML for Analysis (XMLA) 规范，具有的特定扩展 [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] 。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-104">MDX is based on the XML for Analysis (XMLA) specification, with specific extensions for [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)].</span></span> <span data-ttu-id="8f8ca-105">MDX 使用由标识符、值、语句、函数和运算符组成的表达式， [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] 可以通过计算表达式来检索某个对象（如集或成员）或标量值（如字符串或数字）。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-105">MDX utilizes expressions composed of identifiers, values, statements, functions, and operators that [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] can evaluate to retrieve an object (for example a set or a member), or a scalar value (for example, a string or a number).</span></span>  
+  
+ <span data-ttu-id="8f8ca-106">中的 MDX 查询和表达式 [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] 用于执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="8f8ca-106">MDX queries and expressions in [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] are used to do the following:</span></span>  
+  
+-   <span data-ttu-id="8f8ca-107">将数据从 [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] 多维数据集返回到客户端应用程序 [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] 。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-107">Return data to a client application from a [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] cube.</span></span>  
+  
+-   <span data-ttu-id="8f8ca-108">设置查询结果的格式。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-108">Format query results.</span></span>  
+  
+-   <span data-ttu-id="8f8ca-109">执行多维数据集设计任务，包括定义计算成员、命名集、范围分配和关键绩效指标 (KPI)。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-109">Perform cube design tasks, including the definition of calculated members, named sets, scoped assignments, and key performance indicators (KPIs).</span></span>  
+  
+-   <span data-ttu-id="8f8ca-110">执行管理任务，包括维度和单元安全性。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-110">Perform administrative tasks, including dimension and cell security.</span></span>  
+  
+ <span data-ttu-id="8f8ca-111">MDX 在很多方面与关系数据库常用的 SQL 语法看起来很相似。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-111">MDX is superficially similar in many ways to the SQL syntax that is typically used with relational databases.</span></span> <span data-ttu-id="8f8ca-112">但是，MDX 并非 SQL 语言的扩展，在许多方面都有别于 SQL。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-112">However, MDX is not an extension of the SQL language and is different from SQL in many ways.</span></span> <span data-ttu-id="8f8ca-113">为了创建用于设计或保护多维数据集的 MDX 表达式，或创建 MDX 查询以返回多维数据并设置其格式，您需要了解有关 MDX 和维度建模的基本概念、MDX 语法元素、MDX 运算符、MDX 语句以及 MDX 函数。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-113">In order to create MDX expressions used to design or secure cubes, or to create MDX queries to return and format multidimensional data, you need to understand basic concepts in MDX and dimensional modeling, MDX syntax elements, MDX operators, MDX statements, and MDX functions.</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="8f8ca-114">有关详细信息，请参阅 Microsoft TechNet 网站上的[SQL Server 2005-Analysis Services](https://go.microsoft.com/fwlink/?LinkId=80853)页上的 "其他资源" 部分。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-114">For more information, see the Additional Resources section on the [SQL Server 2005 - Analysis Services](https://go.microsoft.com/fwlink/?LinkId=80853) page on the Microsoft TechNet Web site.</span></span> <span data-ttu-id="8f8ca-115">有关与 MDX 查询和计算相关的性能问题的详细信息，请参阅[SQL Server 2005 Analysis Services 性能指南](https://docsbay.net/Microsoft-SQL-Server-2005-Analysis-Services-Performance-Guide)中的 "编写有效的 MDX" 一节。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-115">For more information about performance issues related to MDX queries and calculations, see the section "Writing Efficient MDX" in the [SQL Server 2005 Analysis Services Performance Guide](https://docsbay.net/Microsoft-SQL-Server-2005-Analysis-Services-Performance-Guide).</span></span>  
+  
+## <a name="in-this-section"></a><span data-ttu-id="8f8ca-116">本节内容</span><span class="sxs-lookup"><span data-stu-id="8f8ca-116">In This Section</span></span>  
+  
+|<span data-ttu-id="8f8ca-117">主题</span><span class="sxs-lookup"><span data-stu-id="8f8ca-117">Topic</span></span>|<span data-ttu-id="8f8ca-118">说明</span><span class="sxs-lookup"><span data-stu-id="8f8ca-118">Description</span></span>|  
+|-----------|-----------------|  
+|[<span data-ttu-id="8f8ca-119">MDX 中的重要概念 (Analysis Services)</span><span class="sxs-lookup"><span data-stu-id="8f8ca-119">Key Concepts in MDX &#40;Analysis Services&#41;</span></span>](../key-concepts-in-mdx-analysis-services.md)|<span data-ttu-id="8f8ca-120">您可以 (MDX) 使用多维表达式来查询多维数据或创建 MDX 表达式以便在多维数据集中使用，但首先应了解 [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] 维度的概念和术语。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-120">You can use Multidimensional Expressions (MDX) to query multidimensional data or to create MDX expressions for use within a cube, but first you should understand [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] dimension concepts and terminology.</span></span>|  
+|[<span data-ttu-id="8f8ca-121">MDX 查询基础知识 (Analysis Services)</span><span class="sxs-lookup"><span data-stu-id="8f8ca-121">MDX Query Fundamentals &#40;Analysis Services&#41;</span></span>](mdx-query-fundamentals-analysis-services.md)|<span data-ttu-id="8f8ca-122">多维表达式 (MDX) 使您可以查询多维对象（如多维数据集）并返回包含该多维数据集的数据的多维单元集。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-122">Multidimensional Expressions (MDX) enables you to query multidimensional objects, such as cubes, and return multidimensional cellsets that contain the cube's data.</span></span> <span data-ttu-id="8f8ca-123">本主题及其子主题提供 MDX 查询的概述。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-123">This topic and its subtopics provide an overview of MDX queries.</span></span>|  
+|[<span data-ttu-id="8f8ca-124">MDX 脚本编写基础知识 (Analysis Services)</span><span class="sxs-lookup"><span data-stu-id="8f8ca-124">MDX Scripting Fundamentals &#40;Analysis Services&#41;</span></span>](mdx-scripting-fundamentals-analysis-services.md)|<span data-ttu-id="8f8ca-125">在中 [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)] ， (mdx) 脚本的多维表达式由一个或多个 mdx 表达式或语句构成，这些表达式或语句用计算结果填充多维数据集。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-125">In [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] [!INCLUDE[ssASnoversion](../../../includes/ssasnoversion-md.md)], a Multidimensional Expressions (MDX) script is made up of one or more MDX expressions or statements that populate a cube with calculations.</span></span><br /><br /> <span data-ttu-id="8f8ca-126">MDX 脚本定义多维数据集的计算过程。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-126">An MDX script defines the calculation process for a cube.</span></span> <span data-ttu-id="8f8ca-127">MDX 脚本也被视为多维数据集的一部分。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-127">An MDX script is also considered part of the cube itself.</span></span> <span data-ttu-id="8f8ca-128">因此，更改与多维数据集相关联的 MDX 脚本将会立即更改多维数据集的计算过程。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-128">Therefore, changing an MDX script associated with a cube immediately changes the calculation process for the cube.</span></span><br /><br /> <span data-ttu-id="8f8ca-129">要创建 MDX 脚本，您可以使用 [!INCLUDE[ssBIDevStudioFull](../../../includes/ssbidevstudiofull-md.md)]中的“多维数据集设计器”。</span><span class="sxs-lookup"><span data-stu-id="8f8ca-129">To create MDX scripts, you can use Cube Designer in the [!INCLUDE[ssBIDevStudioFull](../../../includes/ssbidevstudiofull-md.md)].</span></span>|  
+  
+## <a name="see-also"></a><span data-ttu-id="8f8ca-130">另请参阅</span><span class="sxs-lookup"><span data-stu-id="8f8ca-130">See Also</span></span>  
+ <span data-ttu-id="8f8ca-131">[Mdx 语法元素 &#40;MDX&#41;](/sql/mdx/mdx-syntax-elements-mdx) </span><span class="sxs-lookup"><span data-stu-id="8f8ca-131">[MDX Syntax Elements &#40;MDX&#41;](/sql/mdx/mdx-syntax-elements-mdx) </span></span>  
+ [<span data-ttu-id="8f8ca-132">MDX 语言参考 (MDX)</span><span class="sxs-lookup"><span data-stu-id="8f8ca-132">MDX Language Reference &#40;MDX&#41;</span></span>](/sql/mdx/mdx-language-reference-mdx)  
+  
+  
